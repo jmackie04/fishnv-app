@@ -1,0 +1,50 @@
+<template>
+  <div class="bg-white">
+    <Popover v-slot="{ open }" class="relative">
+      <PopoverButton
+        :class="open ? 'text-olive-600' : ''"
+        class="inline-flex items-center p-2 border border-gray-300 text-gray-500 text-sm rounded group hover:text-olive-600 hover:border-olive-600 focus:outline-none focus:text-olive-600 focus:ring-1 focus:ring-olive-500 focus:border-olive-500"
+      >
+        <slot name="label">Label</slot>
+        <ChevronDownIcon
+          :class="open ? 'rotate-180' : ''"
+          class="w-4 h-4 ml-1 transform rotate-0 transition-transform duration-200"
+          aria-hidden="true"
+        />
+      </PopoverButton>
+
+      <transition
+        enter-active-class="transition duration-200 ease-out"
+        enter-from-class="translate-y-1 opacity-0"
+        enter-to-class="translate-y-0 opacity-100"
+        leave-active-class="transition duration-150 ease-in"
+        leave-from-class="translate-y-0 opacity-100"
+        leave-to-class="translate-y-1 opacity-0"
+      >
+        <PopoverPanel
+          class="absolute z-10 w-screen max-w-sm px-4 mt-2 transform sm:px-0 right-0"
+        >
+          <div
+            class="overflow-hidden rounded shadow-lg ring-1 ring-gray-300"
+          >
+            <div class="relative grid gap-8 bg-white p-4">
+              <slot name="content">Content goes here</slot>
+            </div>
+          </div>
+        </PopoverPanel>
+      </transition>
+    </Popover>
+  </div>
+</template>
+
+<script>
+import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
+import { ChevronDownIcon } from '@heroicons/vue/solid'
+
+export default {
+  name: 'filter-popover',
+  components: { Popover, PopoverButton, PopoverPanel, ChevronDownIcon },
+
+  props: { label: String }
+}
+</script>
