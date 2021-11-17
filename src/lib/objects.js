@@ -18,3 +18,9 @@ export const omit = (obj, props) =>
     (acc, key) => props.includes(key) ? { ...acc } : { ...acc, [key]: obj[key] },
     {}
   )
+
+export const omitWith = (obj, fn) => 
+  Object.keys(obj).reduce(
+    (acc, key) => fn(obj[key]) ? { ...acc } : { ...acc, [key]: obj[key] },
+    {}
+  )
