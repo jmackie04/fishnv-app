@@ -17,19 +17,6 @@ FishNvApi.interceptors.request.use((config) => {
 /** Pick truthy values */
 const pickTruthy = (obj) => Object.keys(obj)
     .reduce((acc, key) => !obj[key] ? { ...acc } : { ...acc, [key]: obj[key] }, {})
-  
-/** Filter an array with an object of criteria */
-const filterFishableWatersArr = (arr, filters) => {
-  const filterKeys = Object.keys(filters)
-  
-  return arr.filter(item => {
-      return filterKeys.every(key => {
-        if (!filters[key].toString().length) return true
-        if (key === 'species') return item[key].includes(filters[key])
-        return filters[key] === item[key]
-      })
-  })
-}
 
 export const useFishableWaters = () => {
   const { data: fishableWaters, isLoading, error } = useAxios('/fishable-waters', FishNvApi)
@@ -48,7 +35,7 @@ export const useFishableWaters = () => {
     if (isLoading.value || !hasFilters) return fishableWaters.value
 
     const filterObj = pickTruthy(filters)
-    return filterFishableWatersArr(fishableWaters.value, filterObj)
+    return filterFishableWaters(fishableWaters.value, filterObj)
   })
   const totalFishableWaters = computed(() => {
     return filteredFishableWaters.value?.length
@@ -73,4 +60,16 @@ export const useFishableWaters = () => {
     filters,
     resetFilters
   }
+}
+
+function filterFishableWaters (arr, filters) {
+  const filterKeys = Object.keys(filters)
+
+  return arr.filter(item => {
+    return filterKeys.every(key => {
+      if (!filters[key].toString().length) return true
+      if (key === 'species') return item[key].includes(filters[key])
+      return filters[key] === item[key]
+    })
+  })
 }

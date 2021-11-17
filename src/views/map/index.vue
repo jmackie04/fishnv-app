@@ -1,7 +1,7 @@
 <template>
 
   <div class="flex-1 flex flex-col">
-    <ndow-header-bar @click="openMobileMenu()" />
+    <ndow-header-bar />
 
     <div class="flex-1 flex overflow-hidden">
       <!-- map section -->
@@ -15,7 +15,7 @@
       </section>
 
       <!-- side bar -->
-      <aside class="lg:w-120 lg:flex-shink-0 lg:order-first overflow-y-scroll">
+      <aside class="w-full lg:w-120 lg:flex-shink-0 lg:order-first overflow-clip overflow-y-scroll">
         <div class="border-r border-gray-200 bg-gray-200">
 
           <div class="p-4">
@@ -50,7 +50,7 @@
           <div class="text-lg py-2">{{ totalFishableWaters }}</div>
           <pre><code>{{ { isLoading } }}</code></pre>
 
-          <div class="overflow-y-scroll">
+          <div class="text-sm">
             <pre><code>{{ filteredFishableWaters }}</code></pre>
           </div>
         </div>
