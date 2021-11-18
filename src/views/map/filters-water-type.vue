@@ -7,7 +7,7 @@
       </p>
     </div>
 
-    <RadioGroup v-model="selected">
+    <!-- <RadioGroup v-model="selected">
       <RadioGroupLabel class="sr-only">
         Water Types
       </RadioGroupLabel>
@@ -35,7 +35,9 @@
           </div>
         </RadioGroupOption>
       </div>
-    </RadioGroup>
+    </RadioGroup> -->
+
+    <inputRadioGroup :options="waterTypes" v-model="selected" />
 
     <div class="flex justify-end">
       <button
@@ -52,15 +54,17 @@
 
 <script>
 import { toRef } from 'vue'
-import { RadioGroup, RadioGroupDescription, RadioGroupLabel, RadioGroupOption } from '@headlessui/vue'
+// import { RadioGroup, RadioGroupDescription, RadioGroupLabel, RadioGroupOption } from '@headlessui/vue'
+import inputRadioGroup from '../../components/input-radio-group.vue'
 import useFiltersWaterType from '../../composables/use-filters-water-type.js'
 
 export default {
   components: {
-    RadioGroup,
-    RadioGroupDescription,
-    RadioGroupLabel,
-    RadioGroupOption,
+    inputRadioGroup
+    // RadioGroup,
+    // RadioGroupDescription,
+    // RadioGroupLabel,
+    // RadioGroupOption,
   },
   setup() {
     const { state, setSelected, clearSelected } = useFiltersWaterType()
@@ -74,7 +78,7 @@ export default {
     
     watch(selected, (selected) => { setSelected(selected) })
     */
-    const selected = toRef(state, 'selectedWaterType')
+   const selected = toRef(state, 'selectedWaterType')
 
     return {
       waterTypes,

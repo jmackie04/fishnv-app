@@ -48,7 +48,9 @@ export default () => {
     const filterObj = pickTruthy(filters)
     return filterFishableWaters(fishableWaters.value, filterObj)
   })
-  const totalFishableWaters = computed(() => filteredFishableWaters.value.length)
+  const totalFishableWaters = computed(() => {
+    if (!isLoading.value) return filteredFishableWaters.value.length
+  })
 
   return {
     fishableWaters,
