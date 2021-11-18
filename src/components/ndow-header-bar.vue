@@ -41,13 +41,22 @@
 
     <!-- Filter popovers -->
     <div class="flex-1 items-center space-x-2 hidden lg:flex">
+      <!-- species filters -->
       <filter-popover>
         <template #label>Species</template>
         <template #content>
           <filters-species v-model="state.selectedSpecies" @update:clearValue="clearSelectedSpecies" />
         </template>
       </filter-popover>
-      <filter-popover label="Water Type" />
+      
+      <!-- water type filters -->
+      <filter-popover label="Water Type">
+        <template #label>Water Type</template>
+        <template #content>
+          <filters-water-type />
+        </template>
+      </filter-popover>
+      
       <filter-popover label="County" />
     </div>
 
@@ -86,6 +95,7 @@ import { ref } from 'vue'
 import { SearchIcon, AdjustmentsIcon, MapIcon, ViewGridIcon, MenuAlt4Icon } from '@heroicons/vue/outline'
 import filterPopover from '../components/filter-popover.vue'
 import filtersSpecies from '../views/map/filters-species.vue'
+import filtersWaterType from '../views/map/filters-water-type.vue'
 import useMobileMenu from '../composables/use-mobile-menu.js'
 import useFiltersSpecies from '../composables/use-filters-species.js'
 
@@ -98,7 +108,8 @@ export default {
     ViewGridIcon,
     MenuAlt4Icon,
     filterPopover,
-    filtersSpecies
+    filtersSpecies,
+    filtersWaterType
   },
   setup () {
     const { open: openMobileMenu } = useMobileMenu()

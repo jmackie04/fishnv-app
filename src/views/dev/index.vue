@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-content w-full">
+  <div class="flex flex-col items-center justify-content w-full mt-8 space-y-8">
     <div class="bg-white rounded w-1/2 mx-auto">
       <checkbox-option optionId="apple" optionLabel="apple" v-model="apple" />
       <!-- <input-checkbox fieldId="apple" label="Apple" v-model:checked="apple" /> -->
@@ -22,6 +22,12 @@
       </div>
     </div>
 
+    <div class="bg-white rounded mx-auto w-1/2 p-4">
+      <h2 class="text-lg">Radio Group</h2>
+
+      <filtersWaterType />      
+    </div>
+
 
   </div>
 </template>
@@ -31,13 +37,15 @@ import { ref } from 'vue'
 import inputCheckbox from '../../components/input-checkbox.vue'
 import checkboxOption from '../../components/checkbox-option.vue'
 import filtersSpecies from '../map/filters-species.vue'
+import filtersWaterType from '../map/filters-water-type.vue'
 
 export default {
   name: 'dev-view',
   components: {
     inputCheckbox,
     checkboxOption,
-    filtersSpecies
+    filtersSpecies,
+    filtersWaterType
   },
 
   setup () {

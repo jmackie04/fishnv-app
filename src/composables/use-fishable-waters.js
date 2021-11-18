@@ -1,9 +1,10 @@
 import { reactive, ref, computed, toRef } from 'vue'
 import axios from 'axios'
 import { useAxios } from '@vueuse/integrations/useAxios'
-import useFiltersSpecies from './use-filters-species.js'
 import { omitWith, pickTruthy } from '../lib/objects.js'
 import { isEmpty, contains } from '../lib/predicates.js'
+import useFiltersSpecies from './use-filters-species.js'
+import useFiltersWaterType from './use-filters-water-type.js'
 
 const FishNvApi = axios.create({
   baseURL: 'http://localhost:3333',
@@ -31,10 +32,11 @@ const filterFishableWaters = (fishableWaters, filters) => {
 export default () => {
   const { data: fishableWaters, isLoading, error } = useAxios('/fishable-waters', FishNvApi)
   const { state: speciesFilters } = useFiltersSpecies()
+  const { state: waterTypeFilters } = useFiltersWaterType()
 
   const filters = reactive({
     species: toRef(speciesFilters, 'selectedSpecies'),
-    water_type: '',
+    water_type: toRef(waterTypeFilters, 'selectedWaterType'),
     region: '',
     county: ''
   })
