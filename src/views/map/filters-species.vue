@@ -1,8 +1,8 @@
 <template>
-  <div class="text-gray-600 space-y-2">
+  <div class="text-gray-600 space-y-6">
     <div>
-      <h2 class="text-xl text-gray-800">Select A Species</h2>
-      <p class="font-light">
+      <h2 class="text-lg text-gray-800">Select A Species</h2>
+      <p class="font-light text-sm">
         This will filter the waters for the combination of species selected.
       </p>
     </div>
@@ -22,10 +22,10 @@
       </div>
     </div>
 
-    <div>
+    <div class="flex justify-end">
       <button
         type="button"
-        class="text-sm font-light underline text-saffron-500 hover:text-saffron-400"
+        class="text-sm font-light text-gray-600 hover:text-red-500 hover:underline"
         @click="clearSelection"
       >
         Clear Selection
