@@ -31,6 +31,9 @@ module.exports = {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans]
       },
+      fontSize: {
+        xxs: '.625rem'
+      },
       colors: {
         carolina: '#589fd6',
         ginger: '#e0dd89',

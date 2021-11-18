@@ -40,9 +40,9 @@
     </div>
 
     <!-- Filter popovers -->
-    <div class="flex-1 items-center space-x-2 hidden lg:flex">
+    <div class="flex-1 items-center space-x-3 hidden lg:flex">
       <!-- species filters -->
-      <filter-popover>
+      <filter-popover :is-filtered="activeFilters.includes('species')">
         <template #label>Species</template>
         <template #content>
           <filters-species v-model="state.selectedSpecies" @update:clearValue="clearSelectedSpecies" />
@@ -50,7 +50,7 @@
       </filter-popover>
       
       <!-- water type filters -->
-      <filter-popover label="Water Type">
+      <filter-popover :is-filtered="activeFilters.includes('water_type')">
         <template #label>Water Type</template>
         <template #content>
           <filters-water-type />
@@ -58,12 +58,22 @@
       </filter-popover>
       
       <!-- location filters -->
-      <filter-popover>
+      <filter-popover :is-filtered="activeFilters.includes('region') || activeFilters.includes('county')">
         <template #label>Locations</template>
         <template #content>
           <filters-locations />
         </template>
       </filter-popover>
+
+      <div>
+        <button
+          type="button"
+          class="p-2 rounded text-sm text-gray-500 font-light hover:text-red-500 hover:underline"
+          @click="clearFilters"
+        >
+          Clear Filters
+        </button>
+      </div>
     </div>
 
     <!-- mobile page buttons -->
@@ -97,7 +107,7 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { computed } from 'vue'
 import { SearchIcon, AdjustmentsIcon, MapIcon, ViewGridIcon, MenuAlt4Icon } from '@heroicons/vue/outline'
 import filterPopover from '../components/filter-popover.vue'
 import filtersSpecies from '../views/map/filters-species.vue'
@@ -105,6 +115,7 @@ import filtersWaterType from '../views/map/filters-water-type.vue'
 import filtersLocations from '../views/map/filters-locations.vue'
 import useMobileMenu from '../composables/use-mobile-menu.js'
 import useFiltersSpecies from '../composables/use-filters-species.js'
+import useFishableWaters from '../composables/use-fishable-waters.js'
 
 export default {
   name: 'ndow-map-header',
@@ -121,14 +132,17 @@ export default {
   },
   setup () {
     const { open: openMobileMenu } = useMobileMenu()
+    const { filters, clearFilters } = useFishableWaters()
     const { state, clearSelectedSpecies } = useFiltersSpecies()
 
-    // const species = ref([])
+    const activeFilters = computed(() => Object.keys(filters.value))
 
     return {
       openMobileMenu,
       state,
-      clearSelectedSpecies
+      clearSelectedSpecies,
+      activeFilters,
+      clearFilters
     }
   }
 }

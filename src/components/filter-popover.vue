@@ -3,13 +3,17 @@
     <Popover v-slot="{ open }" class="relative">
       <PopoverButton
         :class="open ? 'text-olive-600' : ''"
-        class="inline-flex items-center p-2 border border-gray-300 text-gray-500 text-sm rounded group hover:text-olive-600 hover:border-olive-600 focus:outline-none focus:text-olive-600 focus:ring-1 focus:ring-olive-500 focus:border-olive-500"
+        class="relative inline-flex items-center p-2 border border-gray-300 text-gray-500 text-sm rounded group hover:text-olive-600 hover:border-olive-600 focus:outline-none focus:text-olive-600 focus:ring-1 focus:ring-olive-500 focus:border-olive-500"
       >
         <slot name="label">Label</slot>
         <ChevronDownIcon
           :class="open ? 'rotate-180' : ''"
           class="w-4 h-4 ml-1 transform rotate-0 transition-transform duration-200"
           aria-hidden="true"
+        />
+        <span
+          v-if="isFiltered"
+          class="absolute inline-flex items-center justify-center bg-olive-500 h-3 w-3 text-xxs text-olive-100 font-bold rounded-full shadow -top-1 -right-1"
         />
       </PopoverButton>
 
@@ -45,6 +49,11 @@ export default {
   name: 'filter-popover',
   components: { Popover, PopoverButton, PopoverPanel, ChevronDownIcon },
 
-  props: { label: String }
+  props: {
+    isFiltered: {
+      type: Boolean,
+      default: false
+    }
+  }
 }
 </script>

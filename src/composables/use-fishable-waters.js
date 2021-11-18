@@ -32,27 +32,33 @@ const filterFishableWaters = (fishableWaters, filters) => {
 
 export default () => {
   const { data: fishableWaters, isLoading, error } = useAxios('/fishable-waters', FishNvApi)
-  const { state: speciesFilters } = useFiltersSpecies()
-  const { state: waterTypeFilters } = useFiltersWaterType()
-  const { state: locationFilters } = useFiltersLocation()
+  const { state: speciesFilters, clearSelectedSpecies } = useFiltersSpecies()
+  const { state: waterTypeFilters, clearSelected: clearSelectedWaterType } = useFiltersWaterType()
+  const { state: locationFilters, clearSelected: clearSelectedLocations  } = useFiltersLocation()
 
-  const filters = reactive({
+  const _filters = reactive({
     species: toRef(speciesFilters, 'selectedSpecies'),
     water_type: toRef(waterTypeFilters, 'selectedWaterType'),
     region: toRef(locationFilters, 'selectedRegion'),
     county: toRef(locationFilters, 'selectedCounty')
   })
 
-  const hasFilters = computed(() => !isEmpty(omitWith(filters, isEmpty)))
+  const filters = computed(() => omitWith(_filters, isEmpty))
+  const hasFilters = computed(() => !isEmpty(filters.value))
   const filteredFishableWaters = computed(() => {
     if  (isLoading.value || !hasFilters.value ) return fishableWaters.value
 
-    const filterObj = pickTruthy(filters)
-    return filterFishableWaters(fishableWaters.value, filterObj)
+    return filterFishableWaters(fishableWaters.value, filters.value)
   })
   const totalFishableWaters = computed(() => {
     if (!isLoading.value) return filteredFishableWaters.value.length
   })
+
+  const clearFilters = () => {
+    clearSelectedSpecies()
+    clearSelectedWaterType()
+    clearSelectedLocations()
+  }
 
   return {
     fishableWaters,
@@ -61,6 +67,7 @@ export default () => {
     filters,
     hasFilters,
     filteredFishableWaters,
-    totalFishableWaters
+    totalFishableWaters,
+    clearFilters
   }
 }
