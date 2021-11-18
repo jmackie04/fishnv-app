@@ -15,9 +15,9 @@
             v-for="option in species[group]"
             :key="option.value"
             :optionId="option.value"
-            :optionLabel="option.label"
+            :optionLabel="option.value"
             v-model="model"
-          />
+          >{{ option.label }}</checkbox-option>
       </div>
       </div>
     </div>

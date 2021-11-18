@@ -24,6 +24,7 @@
           <pre><code>{{ { filters } }}</code></pre>
 
           <div class="text-sm">
+            <pre><code>{{ {totalFishableWaters } }}</code></pre>
             <pre><code>{{ filteredFishableWaters }}</code></pre>
 
           </div>
@@ -52,7 +53,8 @@ export default {
       error,
       filters,
       hasFilters,
-      filteredFishableWaters
+      filteredFishableWaters,
+      totalFishableWaters
     } = useFishableWaters()
     const { open: openMobileMenu } = useMobileMenu()
 
@@ -63,6 +65,7 @@ export default {
       filters,
       hasFilters,
       filteredFishableWaters,
+      totalFishableWaters,
       // mobile menu method
       openMobileMenu
     }

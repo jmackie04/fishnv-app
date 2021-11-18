@@ -19,7 +19,13 @@ FishNvApi.interceptors.request.use((config) => {
 
 /** filterFishableWaters */
 const filterFishableWaters = (fishableWaters, filters) => {
-  
+  return fishableWaters.filter(waters => {
+    return Object.keys(filters).every(key => {
+      if (!filters[key].toString().length) return true
+      if (key === 'species') return contains(waters[key], filters[key])
+      return filters[key] === waters[key]
+    })
+  })
 }
 
 export default () => {
@@ -38,9 +44,9 @@ export default () => {
     if  (isLoading.value || !hasFilters.value ) return fishableWaters.value
 
     const filterObj = pickTruthy(filters)
-    // return filterObj
     return filterFishableWaters(fishableWaters.value, filterObj)
   })
+  const totalFishableWaters = computed(() => filteredFishableWaters.value.length)
 
   return {
     fishableWaters,
@@ -48,51 +54,7 @@ export default () => {
     error,
     filters,
     hasFilters,
-    filteredFishableWaters
+    filteredFishableWaters,
+    totalFishableWaters
   }
 }
-
-// export const useFishableWaters = () => {
-//   const { data: fishableWaters, isLoading, error } = useAxios('/fishable-waters', FishNvApi)
-//   const { state: speciesFilters } = useFiltersSpecies()
-
-//   // filter variables
-//   const filters = reactive({
-//     species: '',
-//     water_type: '',
-//     region: '',
-//     county: ''
-//   })
-
-//   // filtered fishable waters
-//   const filteredFishableWaters = computed(() => {
-//     const hasFilters = Object.keys(filters).length
-//     if (isLoading.value || !hasFilters) return fishableWaters.value
-
-//     const filterObj = pickTruthy(filters)
-//     return filterFishableWaters(fishableWaters.value, filterObj)
-//   })
-//   const totalFishableWaters = computed(() => {
-//     return filteredFishableWaters.value?.length
-//   })
-
-//   // reset filters method
-//   function resetFilters () {
-//     filters.species = '',
-//     filters.water_type = ''
-//     filters.region = ''
-//     filters.county = ''
-//   }
-
-//   return {
-//     isLoading,
-//     fishableWaters,
-//     error,
-//     filteredFishableWaters,
-//     totalFishableWaters,
-
-//     // filter values
-//     filters,
-//     resetFilters
-//   }
-// }
