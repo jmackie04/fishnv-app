@@ -57,7 +57,13 @@
         </template>
       </filter-popover>
       
-      <filter-popover label="County" />
+      <!-- location filters -->
+      <filter-popover>
+        <template #label>Locations</template>
+        <template #content>
+          <filters-locations />
+        </template>
+      </filter-popover>
     </div>
 
     <!-- mobile page buttons -->
@@ -96,6 +102,7 @@ import { SearchIcon, AdjustmentsIcon, MapIcon, ViewGridIcon, MenuAlt4Icon } from
 import filterPopover from '../components/filter-popover.vue'
 import filtersSpecies from '../views/map/filters-species.vue'
 import filtersWaterType from '../views/map/filters-water-type.vue'
+import filtersLocations from '../views/map/filters-locations.vue'
 import useMobileMenu from '../composables/use-mobile-menu.js'
 import useFiltersSpecies from '../composables/use-filters-species.js'
 
@@ -109,7 +116,8 @@ export default {
     MenuAlt4Icon,
     filterPopover,
     filtersSpecies,
-    filtersWaterType
+    filtersWaterType,
+    filtersLocations
   },
   setup () {
     const { open: openMobileMenu } = useMobileMenu()

@@ -5,6 +5,7 @@ import { omitWith, pickTruthy } from '../lib/objects.js'
 import { isEmpty, contains } from '../lib/predicates.js'
 import useFiltersSpecies from './use-filters-species.js'
 import useFiltersWaterType from './use-filters-water-type.js'
+import useFiltersLocation from './use-filters-location.js'
 
 const FishNvApi = axios.create({
   baseURL: 'http://localhost:3333',
@@ -33,12 +34,13 @@ export default () => {
   const { data: fishableWaters, isLoading, error } = useAxios('/fishable-waters', FishNvApi)
   const { state: speciesFilters } = useFiltersSpecies()
   const { state: waterTypeFilters } = useFiltersWaterType()
+  const { state: locationFilters } = useFiltersLocation()
 
   const filters = reactive({
     species: toRef(speciesFilters, 'selectedSpecies'),
     water_type: toRef(waterTypeFilters, 'selectedWaterType'),
-    region: '',
-    county: ''
+    region: toRef(locationFilters, 'selectedRegion'),
+    county: toRef(locationFilters, 'selectedCounty')
   })
 
   const hasFilters = computed(() => !isEmpty(omitWith(filters, isEmpty)))

@@ -20,7 +20,7 @@
             <RadioGroupLabel as="span" :class="[checked ? 'text-olive-900' : 'text-gray-900', 'block text-sm font-medium capitalize']">
               {{ option.name }}
             </RadioGroupLabel>
-            <RadioGroupDescription as="span" :class="[checked ? 'text-olive-700' : 'text-gray-500', 'block text-sm']">
+            <RadioGroupDescription v-if="option.name !== option.description" as="span" :class="[checked ? 'text-olive-700' : 'text-gray-500', 'block text-sm']">
               {{ option.description }}
             </RadioGroupDescription>
           </div>
