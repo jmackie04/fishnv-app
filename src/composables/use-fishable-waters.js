@@ -5,6 +5,7 @@ import { omitWith, pickTruthy } from '../lib/objects.js'
 import { isEmpty, contains } from '../lib/predicates.js'
 import useFiltersSpecies from './use-filters-species.js'
 import useFiltersWaterType from './use-filters-water-type.js'
+import useSearch from './use-search.js'
 import useFiltersLocation from './use-filters-location.js'
 
 const FishNvApi = axios.create({
@@ -25,6 +26,9 @@ const filterFishableWaters = (fishableWaters, filters) => {
     return Object.keys(filters).every(key => {
       if (!filters[key].toString().length) return true
       if (key === 'species') return contains(waters[key], filters[key])
+      if (key === 'searchTerm') {
+        return waters.water_name.toLowerCase().indexOf(filters[key].toLowerCase()) > -1
+      }
       return filters[key] === waters[key]
     })
   })
@@ -35,12 +39,14 @@ export default () => {
   const { state: speciesFilters, clearSelectedSpecies } = useFiltersSpecies()
   const { state: waterTypeFilters, clearSelected: clearSelectedWaterType } = useFiltersWaterType()
   const { state: locationFilters, clearSelected: clearSelectedLocations  } = useFiltersLocation()
+  const { state: search } = useSearch()
 
   const _filters = reactive({
     species: toRef(speciesFilters, 'selectedSpecies'),
     water_type: toRef(waterTypeFilters, 'selectedWaterType'),
     region: toRef(locationFilters, 'selectedRegion'),
-    county: toRef(locationFilters, 'selectedCounty')
+    county: toRef(locationFilters, 'selectedCounty'),
+    searchTerm: toRef(search, 'searchTerm')
   })
 
   const filters = computed(() => omitWith(_filters, isEmpty))

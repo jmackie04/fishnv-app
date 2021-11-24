@@ -33,6 +33,7 @@
               class="block w-full bg-white border border-gray-300 rounded py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-olive-500 focus:border-olive-500"
               placeholder="Search"
               type="search"
+              v-model="searchTerm"
             />
           </div>
         </div>
@@ -107,7 +108,7 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, toRef } from 'vue'
 import { SearchIcon, AdjustmentsIcon, MapIcon, ViewGridIcon, MenuAlt4Icon } from '@heroicons/vue/outline'
 import filterPopover from '../components/filter-popover.vue'
 import filtersSpecies from '../views/map/filters-species.vue'
@@ -115,6 +116,7 @@ import filtersWaterType from '../views/map/filters-water-type.vue'
 import filtersLocations from '../views/map/filters-locations.vue'
 import useMobileMenu from '../composables/use-mobile-menu.js'
 import useFiltersSpecies from '../composables/use-filters-species.js'
+import useSearch from '../composables/use-search.js'
 import useFishableWaters from '../composables/use-fishable-waters.js'
 
 export default {
@@ -133,8 +135,10 @@ export default {
   setup () {
     const { open: openMobileMenu } = useMobileMenu()
     const { filters, clearFilters } = useFishableWaters()
+    const { state: search } = useSearch()
     const { state, clearSelectedSpecies } = useFiltersSpecies()
 
+    const searchTerm = toRef(search, 'searchTerm')
     const activeFilters = computed(() => Object.keys(filters.value))
 
     return {
@@ -142,7 +146,8 @@ export default {
       state,
       clearSelectedSpecies,
       activeFilters,
-      clearFilters
+      clearFilters,
+      searchTerm
     }
   }
 }
