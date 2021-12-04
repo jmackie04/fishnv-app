@@ -88,16 +88,20 @@
       </button>
 
       <button
+        v-if="display === 'map'"
         type="button"
         class="flex-shrink-0 bg-white rounded p-2 text-gray-400 hover:text-olive-600 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-olive-500"
+        @click="transitionDisplay('toggle')"
       >
         <span class="sr-only">Open map panel</span>
         <map-icon class="h-6 w-6" aria-hidden="true" />
       </button>
 
       <button
+        v-if="display === 'list'"
         type="button"
         class="flex-shrink-0 bg-white rounded p-2 text-gray-400 hover:text-olive-600 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-olive-500"
+        @click="transitionDisplay('toggle')"
       >
         <span class="sr-only">Open list panel</span>
         <view-grid-icon class="h-6 w-6" aria-hidden="true" />
@@ -133,7 +137,7 @@ export default {
     filtersLocations
   },
   setup () {
-    const { open: openMobileMenu } = useMobileMenu()
+    const { open: openMobileMenu, display, transitionDisplay } = useMobileMenu()
     const { filters, clearFilters } = useFishableWaters()
     const { state: search } = useSearch()
     const { state, clearSelectedSpecies } = useFiltersSpecies()
@@ -147,7 +151,11 @@ export default {
       clearSelectedSpecies,
       activeFilters,
       clearFilters,
-      searchTerm
+      searchTerm,
+
+      // mobile display state machine
+      display,
+      transitionDisplay
     }
   }
 }

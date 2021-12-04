@@ -80,7 +80,7 @@ export default {
       filteredFishableWaters,
       totalFishableWaters
     } = useFishableWaters()
-    const { open: openMobileMenu } = useMobileMenu()
+    const { open: openMobileMenu, display } = useMobileMenu()
 
     return {
       fishableWaters,
@@ -90,8 +90,12 @@ export default {
       hasFilters,
       filteredFishableWaters,
       totalFishableWaters,
+
       // mobile menu method
-      openMobileMenu
+      openMobileMenu,
+
+      // mobile display state machine
+      display
     }
   }
 }

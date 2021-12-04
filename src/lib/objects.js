@@ -24,3 +24,4 @@ export const omitWith = (obj, fn) =>
     (acc, key) => fn(obj[key]) ? { ...acc } : { ...acc, [key]: obj[key] },
     {}
   )
+  
