@@ -2,27 +2,26 @@ import { reactive, toRefs } from 'vue'
 import { createMachine } from '../lib/fsm.js'
 
 const mobileDisplayMachineDef = {
-  initial: 'map',
+  initial: 'both',
   history: [],
   states: {
     list: {
       transitions: {
-        toggle: {
-          target: 'map'
-        },
-        openFilters: {
-          target: 'filters'
-        }
-      }
+        toggle: { target: 'map' },
+        openFilters: { target: 'filters' },
+        toBoth: { target: 'both' }
+      },
     },
     map: {
       transitions: {
-        toggle: {
-          target: 'list'
-        },
-        openFilters: {
-          target: 'filters'
-        }
+        toggle: { target: 'list' },
+        openFilters: { target: 'filters' },
+        toBoth: { target: 'both' }
+      }
+    },
+    both: {
+      transitions: {
+        toList: { target: 'list' }
       }
     },
     filters: {
@@ -53,7 +52,7 @@ export default function useMobileMenu () {
   // mobile display state machine transitions
   const transitionDisplay = (event) => {
     const nextValue = mobileDisplayMachine.transition(state.display, event)
-    console.log({ nextValue })
+    // console.log({ machine: mobileDisplayMachine })
     state.display = nextValue
   }
 

@@ -4,8 +4,6 @@ export const createMachine = (def) => {
     ...def,
 
     transition (state, event) {
-      console.log("HELLO FROM THE MACHINE")
-      console.log({ state, event })
       const allowedStates = Object.keys(def.states)
       const currentState = def.states[state]
       const transition = currentState?.transitions?.[event]

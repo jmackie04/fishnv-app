@@ -3,10 +3,13 @@
   <div class="flex-1 flex flex-col">
     <ndow-header-bar />
 
+    <!-- content area -->
     <div class="flex-1 flex overflow-hidden">
       <!-- map section -->
-      <section id="map" class="hidden lg:block min-w-0 flex-1 lg:order-last bg-green-200">
+      <section v-if="display === 'both' || display === 'map'" id="map" class="block min-w-0 flex-1 lg:order-last bg-green-200">
         <h1>Map</h1>
+        <pre><code>{{ { breakpoints } }}</code></pre>
+        <pre><code>{{ {display } }}</code></pre>
         <div class="block md:hidden">sm</div>
         <div class="hidden md:block lg:hidden">md</div>
         <div class="hidden lg:block xl:hidden">lg</div>
@@ -15,7 +18,7 @@
       </section>
 
       <!-- side bar -->
-      <aside class="w-full lg:w-120 lg:flex-shink-0 lg:order-first overflow-clip overflow-y-scroll">
+      <aside v-if="display === 'both' || display === 'list'" class="w-full lg:w-120 lg:flex-shink-0 lg:order-first overflow-clip overflow-y-scroll">
         <div class="border-r border-gray-200 bg-gray-200">
 
           <div v-if="!isLoading" class="p-2 text-2xl text-gray-600">
@@ -62,9 +65,11 @@
 </template>
 
 <script>
+import { watch } from 'vue'
 import ndowHeaderBar from '../../components/ndow-header-bar.vue'
 import useFishableWaters from '../../composables/use-fishable-waters.js'
 import useMobileMenu from '../../composables/use-mobile-menu.js'
+import useBreakpoints from '../../composables/use-breakpoints.js'
 
 export default {
   name: 'map-view',
@@ -80,7 +85,16 @@ export default {
       filteredFishableWaters,
       totalFishableWaters
     } = useFishableWaters()
-    const { open: openMobileMenu, display } = useMobileMenu()
+    const { open: openMobileMenu, display, transitionDisplay } = useMobileMenu()
+    const { breakpoints } = useBreakpoints()
+
+    watch(
+      () => breakpoints.w,
+      (bp) => {
+        if (bp >= 1024) transitionDisplay('toBoth')
+        else transitionDisplay('toList')
+      }
+    )
 
     return {
       fishableWaters,
@@ -90,12 +104,13 @@ export default {
       hasFilters,
       filteredFishableWaters,
       totalFishableWaters,
-
+      
       // mobile menu method
       openMobileMenu,
 
       // mobile display state machine
-      display
+      display,
+      breakpoints
     }
   }
 }

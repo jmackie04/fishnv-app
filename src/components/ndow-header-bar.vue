@@ -88,7 +88,7 @@
       </button>
 
       <button
-        v-if="display === 'map'"
+        v-if="display === 'list'"
         type="button"
         class="flex-shrink-0 bg-white rounded p-2 text-gray-400 hover:text-olive-600 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-olive-500"
         @click="transitionDisplay('toggle')"
@@ -98,7 +98,7 @@
       </button>
 
       <button
-        v-if="display === 'list'"
+        v-if="display === 'map'"
         type="button"
         class="flex-shrink-0 bg-white rounded p-2 text-gray-400 hover:text-olive-600 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-olive-500"
         @click="transitionDisplay('toggle')"
