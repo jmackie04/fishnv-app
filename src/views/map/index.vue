@@ -59,21 +59,26 @@
       </aside>
 
     </div>
+
+    <!-- filter panel -->
+    <filters-panel-mobile />
   </div>
-
-
 </template>
 
 <script>
 import { watch } from 'vue'
 import ndowHeaderBar from '../../components/ndow-header-bar.vue'
+import FiltersPanelMobile from './filters-panel-mobile.vue'
 import useFishableWaters from '../../composables/use-fishable-waters.js'
 import useMobileMenu from '../../composables/use-mobile-menu.js'
 import useBreakpoints from '../../composables/use-breakpoints.js'
 
 export default {
   name: 'map-view',
-  components: { ndowHeaderBar },
+  components: {
+    ndowHeaderBar,
+    FiltersPanelMobile
+  },
 
   setup () {
     const {
@@ -110,6 +115,7 @@ export default {
 
       // mobile display state machine
       display,
+      transitionDisplay,
       breakpoints
     }
   }

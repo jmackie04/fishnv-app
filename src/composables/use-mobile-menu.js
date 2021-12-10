@@ -31,7 +31,8 @@ const mobileDisplayMachineDef = {
             const value = ctx.history.pop()
             return value
           }
-        }
+        },
+        toBoth: { target: 'both' }
       }
     }
   }

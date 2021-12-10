@@ -81,14 +81,19 @@
     <div class="flex-none space-x-1 lg:hidden">
       <button
         type="button"
-        class="flex-shrink-0 bg-white rounded p-2 text-gray-400 hover:text-olive-600 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-olive-500"
+        class="relative flex-shrink-0 bg-white rounded p-2 text-gray-400 hover:text-olive-600 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-olive-500"
+        @click="transitionDisplay('openFilters')"
       >
         <span class="sr-only">Open filters panel</span>
         <adjustments-icon class="h-6 w-6" aria-hidden="true" />
+        <span
+          v-if="activeFilters.length"
+          class="absolute inline-flex items-center justify-center bg-olive-500 h-2 w-2 text-xxs text-olive-100 font-bold rounded-full shadow top-1 right-1"
+        />
       </button>
 
       <button
-        v-if="display === 'list'"
+        v-if="display === 'list' || (display === 'filters' && previousDisplay === 'list')"
         type="button"
         class="flex-shrink-0 bg-white rounded p-2 text-gray-400 hover:text-olive-600 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-olive-500"
         @click="transitionDisplay('toggle')"
@@ -98,7 +103,7 @@
       </button>
 
       <button
-        v-if="display === 'map'"
+        v-if="display === 'map' || (display === 'filters' && previousDisplay === 'map')"
         type="button"
         class="flex-shrink-0 bg-white rounded p-2 text-gray-400 hover:text-olive-600 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-olive-500"
         @click="transitionDisplay('toggle')"
@@ -112,7 +117,7 @@
 </template>
 
 <script>
-import { computed, toRef } from 'vue'
+import { computed, toRef, watch, ref } from 'vue'
 import { SearchIcon, AdjustmentsIcon, MapIcon, ViewGridIcon, MenuAlt4Icon } from '@heroicons/vue/outline'
 import filterPopover from '../components/filter-popover.vue'
 import filtersSpecies from '../views/map/filters-species.vue'
@@ -145,6 +150,14 @@ export default {
     const searchTerm = toRef(search, 'searchTerm')
     const activeFilters = computed(() => Object.keys(filters.value))
 
+    const previousDisplay = ref('')
+    watch(
+      display,
+      (curr, prev) => {
+        previousDisplay.value = prev
+      }
+    )
+
     return {
       openMobileMenu,
       state,
@@ -155,7 +168,8 @@ export default {
 
       // mobile display state machine
       display,
-      transitionDisplay
+      transitionDisplay,
+      previousDisplay
     }
   }
 }
