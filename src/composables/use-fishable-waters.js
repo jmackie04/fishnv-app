@@ -9,7 +9,7 @@ import useSearch from './use-search.js'
 import useFiltersLocation from './use-filters-location.js'
 
 const FishNvApi = axios.create({
-  baseURL: 'http://localhost:3333',
+  baseURL: import.meta.env.VITE_APIURL || 'http://localhost:3333',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json'
