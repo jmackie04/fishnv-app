@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center justify-between bg-blue-300 w-full">
+  <div class="flex flex-col items-center justify-between bg-blue-300 full-screen w-full">
     <div class="flex items-center content-center bg-red-300 w-36 h-36">TOP</div>
     <div class="flex items-center content-center w-36 h-36">
       <router-link
@@ -61,5 +61,9 @@ export default {
 
 .vignette {
   box-shadow: inset 0 0 300px black;
+}
+
+.full-screen {
+  height: 100vh;
 }
 </style>

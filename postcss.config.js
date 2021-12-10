@@ -1,7 +1,7 @@
 module.exports = {
   plugins: {
-    'postcss-viewport-height-correction': {},
     tailwindcss: {},
     autoprefixer: {},
+    'postcss-viewport-height-correction': require('postcss-viewport-height-correction'),
   },
 }
