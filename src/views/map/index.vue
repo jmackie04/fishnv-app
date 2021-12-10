@@ -6,7 +6,7 @@
     <!-- content area -->
     <div class="flex-1 flex overflow-hidden">
       <!-- map section -->
-      <section v-if="display === 'both' || display === 'map'" id="map" class="block min-w-0 flex-1 lg:order-last bg-green-200">
+      <section v-if="display === 'both' || display === 'map'" id="map" class="relative block min-w-0 flex-1 lg:order-last bg-blue-200">
         <h1>Map</h1>
         <pre><code>{{ { breakpoints } }}</code></pre>
         <pre><code>{{ {display } }}</code></pre>
@@ -15,6 +15,7 @@
         <div class="hidden lg:block xl:hidden">lg</div>
         <div class="hidden xl:block 2xl:hidden">xl</div>
         <div class="hidden 2xl:block">2xl</div>
+        <map-menu-button />
       </section>
 
       <!-- side bar -->
@@ -69,6 +70,7 @@
 import { watch } from 'vue'
 import ndowHeaderBar from '../../components/ndow-header-bar.vue'
 import FiltersPanelMobile from './filters-panel-mobile.vue'
+import MapMenuButton from './map-menu-button.vue'
 import useFishableWaters from '../../composables/use-fishable-waters.js'
 import useMobileMenu from '../../composables/use-mobile-menu.js'
 import useBreakpoints from '../../composables/use-breakpoints.js'
@@ -77,7 +79,8 @@ export default {
   name: 'map-view',
   components: {
     ndowHeaderBar,
-    FiltersPanelMobile
+    FiltersPanelMobile,
+    MapMenuButton
   },
 
   setup () {
