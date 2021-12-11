@@ -20,6 +20,7 @@ import ndowSidebarNav from '@/components/ndow-sidebar-nav.vue'
 import ndowMobileNavbar from '@/components/ndow-mobile-navbar.vue'
 import ndowMobileMenu from '@/components/ndow-mobile-menu.vue'
 import useMobileMenu from '@/composables/use-mobile-menu.js'
+import NdowMobileNavbar from './components/ndow-mobile-navbar.vue'
 
 const user = {
   name: 'Emily Selman',
@@ -37,8 +38,9 @@ export default {
   components: {
     ndowSidebarNav,
     ndowMobileNavbar,
-    ndowMobileMenu
-  },
+    ndowMobileMenu,
+    NdowMobileNavbar
+},
   setup () {
     const { isOpen: isMobileMenuOpen, close: closeMobileMenu } = useMobileMenu()
 
