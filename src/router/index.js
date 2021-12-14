@@ -5,7 +5,7 @@ import DevView from '../views/dev/index.vue'
 export const routes = [
   {
     path: '/',
-    home: 'Home',
+    name: 'Home',
     component: Home,
     meta: { title: 'FishNV' }
   },

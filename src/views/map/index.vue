@@ -9,8 +9,9 @@
       <section
         v-if="display === 'both' || display === 'map'"
         id="map" 
-        class="relative block min-w-0 flex-1 lg:order-last bg-pattern-topo"
+        class="relative block min-w-0 flex-1 lg:order-last"
       >
+        <maplibre-map />
         <map-menu-button />
       </section>
 
@@ -69,6 +70,7 @@
 import { watch } from 'vue'
 import ndowHeaderBar from '../../components/ndow-header-bar.vue'
 import FiltersPanelMobile from './filters-panel-mobile.vue'
+import MaplibreMap from '../../components/maplibre-map.vue'
 import MapMenuButton from './map-menu-button.vue'
 import useFishableWaters from '../../composables/use-fishable-waters.js'
 import useMobileMenu from '../../composables/use-mobile-menu.js'
@@ -79,7 +81,8 @@ export default {
   components: {
     ndowHeaderBar,
     FiltersPanelMobile,
-    MapMenuButton
+    MapMenuButton,
+    MaplibreMap
   },
 
   setup () {
