@@ -11,7 +11,9 @@
         id="map" 
         class="relative block min-w-0 flex-1 lg:order-last"
       >
-        <maplibre-map />
+        <maplibre-map
+          @update:zoom="handleZoom"
+        />
         <map-menu-button />
       </section>
 
@@ -68,6 +70,7 @@
 
 <script>
 import { watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import ndowHeaderBar from '../../components/ndow-header-bar.vue'
 import FiltersPanelMobile from './filters-panel-mobile.vue'
 import MaplibreMap from '../../components/maplibre-map.vue'
@@ -96,8 +99,8 @@ export default {
       totalFishableWaters
     } = useFishableWaters()
     const { open: openMobileMenu, display, transitionDisplay } = useMobileMenu()
+    
     const { breakpoints } = useBreakpoints()
-
     watch(
       () => breakpoints.w,
       (bp) => {
@@ -105,6 +108,14 @@ export default {
         else transitionDisplay('toList')
       }
     )
+
+    // map interactions
+    const route = useRoute()
+    const router = useRouter()
+    const handleZoom = (param) => {
+      const query = { ...route.query, z: param }
+      router.replace({ query })
+    }
 
     return {
       fishableWaters,
@@ -121,7 +132,10 @@ export default {
       // mobile display state machine
       display,
       transitionDisplay,
-      breakpoints
+      breakpoints,
+
+      // map interactions
+      handleZoom
     }
   }
 }

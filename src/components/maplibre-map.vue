@@ -4,7 +4,6 @@
 
 <script>
 import { onMounted, reactive, computed } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
 import maplibregl from 'maplibre-gl'
 import { addFishableWaters } from '../lib/maplibre.js'
 const TILE_URL = 'http://localhost:3333'
@@ -14,8 +13,6 @@ export default {
   name: 'maplibre-map',
   emits: ['update:zoom', 'update:center', 'update:bounds'],
   setup (_, context) {
-    const router = useRouter()
-    const route = useRoute()
     let blueprint = reactive({
       maplibreRef: {}
     })
@@ -48,7 +45,6 @@ export default {
 
       return map
     }
-
 
     onMounted(() => {
       const map = renderMap(context)
