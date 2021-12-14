@@ -1,4 +1,5 @@
 <template>
+  <maplibre />
   <div class="flex-1 flex flex-col">
     <ndow-header-bar />
 
@@ -10,7 +11,7 @@
         id="map" 
         class="relative block min-w-0 flex-1 lg:order-last"
       >
-        <maplibre-map />
+        <maplibre-map @update:moveend="syncUrl" />
         <map-menu-button />
       </section>
 

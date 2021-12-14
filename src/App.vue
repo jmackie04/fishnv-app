@@ -8,7 +8,8 @@
 
     <div class="flex-1 min-w-0 flex flex-col">
       <main class="flex-1 flex overflow-hidden">
-        <router-view :key="$route.fullPath" />
+        <!-- <router-view :key="$route.fullPath" /> -->
+        <router-view />
       </main>
     </div>
   </div>
