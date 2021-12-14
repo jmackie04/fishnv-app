@@ -11,10 +11,10 @@
               v-for="item in navigation"
               :key="item.name"
               :to="item.href"
-              class="group w-full p-3 rounded-lg flex flex-col items-center text-xs text-oxford-100 hover:bg-oxford-600"
+              class="group w-full p-3 rounded-lg flex flex-col items-center text-xs text-oxford-100 hover:bg-oxford-600 group"
               :class="[ item.href === '#' ? 'cursor-not-allowed' : '' ]"
             >
-              <component :is="item.icon" class="h-6 w-6" aria-hidden="true" />
+              <component :is="item.icon" class="h-6 w-6 group-hover:text-saffron-500" aria-hidden="true" />
               <p class="mt-1">{{ item.name }}</p>
             </router-link>
           </nav>

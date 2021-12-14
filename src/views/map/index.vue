@@ -18,42 +18,32 @@
       <!-- side bar -->
       <aside
         v-if="display === 'both' || display === 'list'"
-        class="w-full lg:w-120 lg:flex-shink-0 lg:order-first overflow-clip overflow-y-scroll border border-r-2 border-gray-300"
+        class="relative z-30 w-full lg:w-120 lg:flex-shink-0 lg:order-first overflow-clip overflow-y-scroll shadow-sm"
       >
-        <div class="border-r border-gray-200 bg-gray-200">
+        <div>
 
           <div v-if="!isLoading" class="p-2 text-2xl text-gray-600">
             {{ totalFishableWaters }} Fishable Waters
           </div>
 
           <div v-if="!isLoading" class="flex flex-col p-2 divide-y-2 divide-gray-200 overflow-x-hidden mx-auto">
-            <transition-group
-              enter-active-class="transition-all transform duration-200 ease-out"
-              leave-active-class="transition-all transform duration-200 ease-in absolute w-[430px]"
-              enter-from-class="opacity-0"
-              enter-to-class="opacity-100"
-              leave-from-class="opacity-100"
-              leave-to-class="opacity-0"
-              move-class="transform duration-200 ease-in-out"
+            <div
+              v-for="(water, index) in filteredFishableWaters" :key="water.id"
+              :class="[
+                index === 0 ? 'rounded-tl-md rounded-tr-md' : '',
+                index === filteredFishableWaters.length - 1 ? 'rounded-bl-md rounded-br-md': '',
+                'bg-white overflow-hidden flex flex-col p-2 group cursor-pointer'
+              ]"
             >
-              <div
-                v-for="(water, index) in filteredFishableWaters" :key="water.id"
-                :class="[
-                  index === 0 ? 'rounded-tl-md rounded-tr-md' : '',
-                  index === filteredFishableWaters.length - 1 ? 'rounded-bl-md rounded-br-md': '',
-                  'bg-white overflow-hidden flex flex-col p-2'
-                ]"
-              >
-                <div class="">
-                  <h2 class="text-lg text-olive-500 tracking-wide font-medium leading-loose">{{ water.water_name }} <span class="text-gray-600 text-sm font-light ml-1">{{ water.label }}</span></h2>
-                </div>
-                <div class="">
-                  <p class="text-gray-600 text-sm font-light capitalize">
-                    {{ water.species.join(', ') }}
-                  </p>
-                </div>
+              <div class="">
+                <h2 class="text-lg text-oxford-500 tracking-wide font-medium leading-loose group-hover:text-saffron-600">{{ water.water_name }} <span class="text-gray-600 text-sm font-light ml-1">{{ water.label }}</span></h2>
               </div>
-            </transition-group>
+              <div class="">
+                <p class="text-gray-600 text-sm font-light capitalize">
+                  {{ water.species.join(', ') }}
+                </p>
+              </div>
+            </div>
           </div>
 
         </div>
