@@ -11,7 +11,7 @@ const MAPTILER_KEY = '2BL4ZBQCqs6NfOUgnKGy'
 
 export default {
   name: 'maplibre-map',
-  emits: ['update:zoom', 'update:center', 'update:bounds'],
+  emits: ['update:moveend'],
   setup (_, context) {
     let blueprint = reactive({
       maplibreRef: {}
@@ -28,14 +28,13 @@ export default {
       map.on('load', () => {
         addFishableWaters(map)
       })
+
       // zoom, pan interactions. emit events
-      map.on('zoomend', () => {
-        const zoom = map.getZoom()
-        context.emit('update:zoom', zoom)
-      })
       map.on('moveend', () => {
-        context.emit('update:center', map.getCenter())
-        context.emit('update:bounds', map.getBounds())
+        const center = map.getCenter()
+        const zoom = map.getZoom()
+        const bounds = map.getBounds()
+        context.emit('update:moveend', { z: zoom, x: center.lng, y: center.lat, bounds })
       })
 
       map.on('click', (e) => {

@@ -1,5 +1,4 @@
 <template>
-
   <div class="flex-1 flex flex-col">
     <ndow-header-bar />
 
@@ -11,9 +10,7 @@
         id="map" 
         class="relative block min-w-0 flex-1 lg:order-last"
       >
-        <maplibre-map
-          @update:zoom="handleZoom"
-        />
+        <maplibre-map />
         <map-menu-button />
       </section>
 
@@ -112,9 +109,8 @@ export default {
     // map interactions
     const route = useRoute()
     const router = useRouter()
-    const handleZoom = (param) => {
-      const query = { ...route.query, z: param }
-      router.replace({ query })
+    const syncUrl = ({ bounds, ...layout }) => {
+      router.replace({ query: { ...route.query, ...layout } })
     }
 
     return {
@@ -135,7 +131,7 @@ export default {
       breakpoints,
 
       // map interactions
-      handleZoom
+      syncUrl
     }
   }
 }

@@ -11,9 +11,9 @@ export const routes = [
   },
   {
     path: '/map',
-    name: 'Map',
-    component: MapView,
-    meta: { title: 'FishNV Map'}
+    name: 'map',
+    component: () => import('../views/map/index.vue')
+    // meta: { title: 'FishNV Map'}
   },
   {
     path: '/dev',
