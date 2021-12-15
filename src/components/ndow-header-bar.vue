@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-shrink-0 flex h-16 bg-white shadow px-2" style="z-index: 10;">
+  <div class="flex-shrink-0 flex h-16 bg-white shadow px-2 z-40">
     <div class="flex flex-1 items-center h-full space-x-2">
       <!-- Menu button, mobile only -->
       <div class="flex-none flex items-center lg:hidden">

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white">
+  <div class="bg-white relative">
     <Popover v-slot="{ open }" class="relative">
       <PopoverButton
         :class="open ? 'text-olive-600' : ''"
@@ -28,9 +28,7 @@
         <PopoverPanel
           class="absolute z-10 w-screen max-w-sm px-4 mt-2 transform sm:px-0 right-0"
         >
-          <div
-            class="overflow-hidden rounded shadow-lg ring-1 ring-gray-300"
-          >
+          <div class="overflow-hidden rounded shadow-xl ring-1 ring-gray-300">
             <div class="relative grid gap-8 bg-white p-4">
               <slot name="content">Content goes here</slot>
             </div>

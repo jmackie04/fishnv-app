@@ -20,8 +20,8 @@
           </TransitionChild>
           <div class="pt-5 pb-4">
             <div class="flex-shrink-0 flex items-end px-4">
-              <img class="h-20 w-auto" src="../assets/images/huntnv-logo_200x156.png" alt="Workflow" />
-              <h1 class="text-saffron-600 text-xl font-semibold tracking-wider -ml-2">HuntNV</h1>
+              <img class="h-20 w-auto" src="../assets/images/huntnv-logo_200x160.png" alt="Workflow" />
+              <h1 class="text-saffron-600 text-xl font-semibold tracking-wider -ml-2">FishNV</h1>
             </div>
             <nav aria-label="Sidebar" class="mt-5">
               <div class="px-2 space-y-1">
