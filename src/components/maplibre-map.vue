@@ -2,6 +2,7 @@
   <div id="maplibre-map" class="relative w-full h-full" />
   <map-menu-button
     @click:geolocate="geolocate"
+    @click:recenter="recenter"
   />
 </template>
 
@@ -16,6 +17,10 @@ import MapMenuButton from '../views/map/map-menu-button.vue'
 
 const TILE_URL = 'http://localhost:3333'
 const MAPTILER_KEY = '2BL4ZBQCqs6NfOUgnKGy'
+const mapInit = {
+  center: [-116.6554, 38.55],
+  zoom: 6
+}
 
 export default {
   name: 'maplibre-map',
@@ -74,10 +79,14 @@ export default {
       const { coords } = await geolocation()
       maplibreObject.value.flyTo({ center: [coords.longitude, coords.latitude], zoom: 11 })
     }
+    const recenter = () => {
+      maplibreObject.value.flyTo(mapInit)
+    }
 
     return {
       maplibreObject,
-      geolocate
+      geolocate,
+      recenter
     }
   }
 }

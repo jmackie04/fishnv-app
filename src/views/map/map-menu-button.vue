@@ -22,6 +22,7 @@
         </button>
       </transition>
 
+      <!-- layers or recenter, can't decide -->
       <transition
         enter-active-class="transition-all transform duration-200 ease-in-out delay-150"
         leave-active-class="transition-all transform duration-200 ease-in-out delay-150"
@@ -33,10 +34,10 @@
         <button
           v-show="menuVisible"
           class="bg-olive-500 text-white p-2 w-10 h-10 rounded-full shadow-xl hover:bg-olive-600"
-          @click="layers"
+          @click="recenter"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 100 100" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M 50.048828 16.035156 A 4.725134 2.5930375 0 0 0 46.658203 16.794922 L 1.3828125 41.640625 A 4.725134 2.5930375 0 0 0 1.3828125 45.308594 L 46.658203 70.154297 A 4.725134 2.5930375 0 0 0 53.341797 70.154297 L 98.617188 45.308594 A 4.725134 2.5930375 0 0 0 98.617188 41.640625 L 53.341797 16.794922 A 4.725134 2.5930375 0 0 0 50.048828 16.035156 z M 4.7265625 52.857422 L 1.3828125 54.691406 A 4.725134 2.5930375 0 0 0 1.3828125 58.359375 L 46.658203 83.205078 A 4.725134 2.5930375 0 0 0 53.341797 83.205078 L 98.617188 58.359375 A 4.725134 2.5930375 0 0 0 98.615234 54.691406 L 95.273438 52.857422 L 88.589844 56.523438 L 88.59375 56.525391 L 50 77.705078 L 11.404297 56.525391 L 11.408203 56.523438 L 4.7265625 52.857422 z " />
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
           </svg>
         </button>
       </transition>
@@ -94,21 +95,21 @@ import { ref } from 'vue'
 export default {
   name: 'map-menu-button',
 
-  emits: ['click:geolocate', 'click:layers', 'click:overlays'],
+  emits: ['click:geolocate', 'click:recenter', 'click:layers'],
 
   setup (_, { emit }) {
     const menuVisible = ref(false)
     const toggle = () => { menuVisible.value = !menuVisible.value }
 
     const geolocate = () => { emit('click:geolocate') }
-    const layers = () => { emit('click:layers') }
+    const recenter = () => { emit('click:recenter') }
     const overlays = () => { emit('click:overlays') }
 
     return {
       menuVisible,
       toggle,
       geolocate,
-      layers,
+      recenter,
       overlays
     }
   }
