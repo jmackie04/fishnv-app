@@ -13,9 +13,11 @@
         <button
           v-show="menuVisible"
           class="bg-olive-500 text-white p-2 w-10 h-10 rounded-full shadow-xl hover:bg-olive-600"
+          @click="geolocate"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 100 100" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M 43 0 L 43 13.166016 C 27.943936 16.030435 16.030435 27.943936 13.166016 43 L 0 43 L 0 57 L 13.166016 57 C 16.030435 72.056064 27.943936 83.969565 43 86.833984 L 43 100 L 57 100 L 57 86.833984 C 72.056064 83.969565 83.969565 72.056064 86.833984 57 L 100 57 L 100 43 L 86.833984 43 C 83.969565 27.943936 72.056064 16.030435 57 13.166016 L 57 0 L 43 0 z M 50 22.5 C 65.247054 22.5 77.5 34.752946 77.5 50 C 77.5 65.247054 65.247054 77.5 50 77.5 C 34.752946 77.5 22.5 65.247054 22.5 50 C 22.5 34.752946 34.752946 22.5 50 22.5 z " />
+            <circle r="15" cy="50" cx="50" />
           </svg>
         </button>
       </transition>
@@ -31,9 +33,10 @@
         <button
           v-show="menuVisible"
           class="bg-olive-500 text-white p-2 w-10 h-10 rounded-full shadow-xl hover:bg-olive-600"
+          @click="layers"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 100 100" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M 50.048828 16.035156 A 4.725134 2.5930375 0 0 0 46.658203 16.794922 L 1.3828125 41.640625 A 4.725134 2.5930375 0 0 0 1.3828125 45.308594 L 46.658203 70.154297 A 4.725134 2.5930375 0 0 0 53.341797 70.154297 L 98.617188 45.308594 A 4.725134 2.5930375 0 0 0 98.617188 41.640625 L 53.341797 16.794922 A 4.725134 2.5930375 0 0 0 50.048828 16.035156 z M 4.7265625 52.857422 L 1.3828125 54.691406 A 4.725134 2.5930375 0 0 0 1.3828125 58.359375 L 46.658203 83.205078 A 4.725134 2.5930375 0 0 0 53.341797 83.205078 L 98.617188 58.359375 A 4.725134 2.5930375 0 0 0 98.615234 54.691406 L 95.273438 52.857422 L 88.589844 56.523438 L 88.59375 56.525391 L 50 77.705078 L 11.404297 56.525391 L 11.408203 56.523438 L 4.7265625 52.857422 z " />
           </svg>
         </button>
       </transition>
@@ -49,10 +52,10 @@
           <button
             v-show="menuVisible"
             class="bg-olive-500 text-white p-2 w-10 h-10 rounded-full shadow-xl hover:bg-olive-600"
+            @click="overlays"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 100 100" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M 50.048828,9.5098049 A 4.725134,2.5930375 0 0 0 46.658203,10.269571 L 1.3828123,35.115274 a 4.725134,2.5930375 0 0 0 0,3.667969 L 46.658203,63.628946 a 4.725134,2.5930375 0 0 0 6.683594,0 L 98.617188,38.783243 a 4.725134,2.5930375 0 0 0 0,-3.667969 L 53.341797,10.269571 A 4.725134,2.5930375 0 0 0 50.048828,9.5098049 Z M 50,15.769571 88.595703,36.949258 50,58.128946 11.40625,36.949258 Z m -45.2734377,30.5625 -3.34375,1.833984 a 4.725134,2.5930375 0 0 0 0,3.667969 L 46.658203,76.679727 a 4.725134,2.5930375 0 0 0 6.683594,0 L 98.617188,51.834024 a 4.725134,2.5930375 0 0 0 -0.002,-3.667969 l -3.341796,-1.833984 -6.683594,3.666016 0.0039,0.002 L 50,71.179727 11.404297,50.00004 l 0.0039,-0.002 z m 0,13.050781 -3.34375,1.833985 a 4.725134,2.5930375 0 0 0 0,3.667968 L 46.658203,89.730508 a 4.725134,2.5930375 0 0 0 6.683594,0 L 98.617188,64.884805 a 4.725134,2.5930375 0 0 0 -0.002,-3.667968 l -3.341796,-1.833985 -6.683594,3.666016 0.0039,0.002 L 50,84.230508 11.404297,63.050821 l 0.0039,-0.002 z" />
             </svg>
           </button>
         </transition>
@@ -91,13 +94,22 @@ import { ref } from 'vue'
 export default {
   name: 'map-menu-button',
 
-  setup () {
+  emits: ['click:geolocate', 'click:layers', 'click:overlays'],
+
+  setup (_, { emit }) {
     const menuVisible = ref(false)
     const toggle = () => { menuVisible.value = !menuVisible.value }
 
+    const geolocate = () => { emit('click:geolocate') }
+    const layers = () => { emit('click:layers') }
+    const overlays = () => { emit('click:overlays') }
+
     return {
       menuVisible,
-      toggle
+      toggle,
+      geolocate,
+      layers,
+      overlays
     }
   }
 }

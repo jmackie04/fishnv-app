@@ -11,7 +11,7 @@
         class="relative block min-w-0 flex-1 lg:order-last"
       >
         <maplibre-map @update:moveend="syncUrl" />
-        <map-menu-button />
+        <!-- <map-menu-button /> -->
       </section>
 
       <!-- side bar -->
