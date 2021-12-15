@@ -8,16 +8,18 @@
       <section
         v-if="display === 'both' || display === 'map'"
         id="map" 
-        class="relative block min-w-0 flex-1 lg:order-last"
+        class="relative block min-w-0 flex-1 lg:order-last bg-blue-300"
       >
-        <maplibre-map @update:moveend="syncUrl" />
-        <!-- <map-menu-button /> -->
+        <maplibre-map
+          @update:moveend="syncUrl"
+          @toggle:maplayers="toggleLayers"
+        />
       </section>
 
       <!-- side bar -->
       <aside
         v-if="display === 'both' || display === 'list'"
-        class="relative z-30 w-full lg:w-120 lg:flex-shink-0 lg:order-first overflow-clip overflow-y-scroll shadow-sm"
+        class="relative z-10 w-full lg:w-120 lg:flex-shink-0 lg:order-first overflow-clip overflow-y-scroll shadow-sm"
       >
         <div>
 
@@ -46,6 +48,8 @@
           </div>
 
         </div>
+
+        <map-layers-panel as="template" :open="mapLayersPanelVisible" />
       </aside>
 
     </div>
@@ -56,23 +60,24 @@
 </template>
 
 <script>
-import { watch } from 'vue'
+import { watch, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import ndowHeaderBar from '../../components/ndow-header-bar.vue'
-import FiltersPanelMobile from './filters-panel-mobile.vue'
-import MaplibreMap from '../../components/maplibre-map.vue'
-import MapMenuButton from './map-menu-button.vue'
 import useFishableWaters from '../../composables/use-fishable-waters.js'
 import useMobileMenu from '../../composables/use-mobile-menu.js'
 import useBreakpoints from '../../composables/use-breakpoints.js'
+
+import ndowHeaderBar from '../../components/ndow-header-bar.vue'
+import FiltersPanelMobile from './filters-panel-mobile.vue'
+import MaplibreMap from '../../components/maplibre-map.vue'
+import MapLayersPanel from './map-layers-panel.vue'
 
 export default {
   name: 'map-view',
   components: {
     ndowHeaderBar,
     FiltersPanelMobile,
-    MapMenuButton,
-    MaplibreMap
+    MaplibreMap,
+    MapLayersPanel
   },
 
   setup () {
@@ -99,9 +104,11 @@ export default {
     // map interactions
     const route = useRoute()
     const router = useRouter()
+    const mapLayersPanelVisible = ref(false)
     const syncUrl = ({ bounds, ...layout }) => {
       router.replace({ query: { ...route.query, ...layout } })
     }
+    const toggleLayers = () => { mapLayersPanelVisible.value = !mapLayersPanelVisible.value }
 
     return {
       fishableWaters,
@@ -121,7 +128,9 @@ export default {
       breakpoints,
 
       // map interactions
-      syncUrl
+      syncUrl,
+      mapLayersPanelVisible,
+      toggleLayers
     }
   }
 }

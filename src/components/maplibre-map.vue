@@ -3,6 +3,7 @@
   <map-menu-button
     @click:geolocate="geolocate"
     @click:recenter="recenter"
+    @click:layers="toggleLayers"
   />
 </template>
 
@@ -10,9 +11,9 @@
 import { onMounted, reactive, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import maplibregl from 'maplibre-gl'
+
 import { addFishableWaters } from '../lib/maplibre.js'
 import { geolocate as geolocation } from '../lib/geolocation.js'
-
 import MapMenuButton from '../views/map/map-menu-button.vue'
 
 const TILE_URL = 'http://localhost:3333'
@@ -25,7 +26,7 @@ const mapInit = {
 export default {
   name: 'maplibre-map',
   components: { MapMenuButton },
-  emits: ['update:moveend'],
+  emits: ['update:moveend', 'toggle:maplayers'],
   setup (_, context) {
     const route = useRoute()
 
@@ -82,11 +83,15 @@ export default {
     const recenter = () => {
       maplibreObject.value.flyTo(mapInit)
     }
+    const toggleLayers = () => {
+      context.emit('toggle:maplayers')
+    }
 
     return {
       maplibreObject,
       geolocate,
-      recenter
+      recenter,
+      toggleLayers
     }
   }
 }
