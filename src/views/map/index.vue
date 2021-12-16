@@ -48,13 +48,11 @@
           </div>
 
         </div>
-
-        <map-layers-panel as="template" :open="mapLayersPanelVisible" />
       </aside>
 
     </div>
 
-    <!-- filter panel -->
+    <map-layers-panel :open="mapLayersPanelVisible" @panel:close="toggleLayers" />
     <filters-panel-mobile />
   </div>
 </template>
@@ -108,7 +106,7 @@ export default {
     const syncUrl = ({ bounds, ...layout }) => {
       router.replace({ query: { ...route.query, ...layout } })
     }
-    const toggleLayers = () => { mapLayersPanelVisible.value = !mapLayersPanelVisible.value }
+    const toggleLayers = () => { mapLayersPanelVisible.value = !mapLayersPanelVisible.value; console.log({ mapLayersPanelVisible }) }
 
     return {
       fishableWaters,
