@@ -21,32 +21,18 @@
         v-if="display === 'both' || display === 'list'"
         class="relative z-10 w-full lg:w-120 lg:flex-shink-0 lg:order-first overflow-clip overflow-y-scroll shadow-sm"
       >
-        <div>
-
-          <div v-if="!isLoading" class="p-2 text-2xl text-oxford-600">
+        <div v-if="!isLoading">
+          <div class="p-2 text-2xl text-oxford-600">
             {{ totalFishableWaters }} Fishable Waters
           </div>
-
-          <div v-if="!isLoading" class="flex flex-col p-2 divide-y-2 divide-gray-200 overflow-x-hidden mx-auto">
-            <div
-              v-for="(water, index) in filteredFishableWaters" :key="water.id"
-              :class="[
-                index === 0 ? 'rounded-tl-md rounded-tr-md' : '',
-                index === filteredFishableWaters.length - 1 ? 'rounded-bl-md rounded-br-md': '',
-                'bg-white overflow-hidden flex flex-col p-2 group cursor-pointer'
-              ]"
-            >
-              <div>
-                <h2 class="text-lg text-oxford-600 tracking-wide font-medium leading-loose group-hover:text-saffron-600">{{ water.water_name }} <span class="text-gray-600 text-sm font-light ml-1">{{ water.label }}</span></h2>
-              </div>
-              <div class="">
-                <p class="text-gray-600 text-sm font-light capitalize">
-                  {{ water.species.join(', ') }}
-                </p>
-              </div>
-            </div>
+          <fw-list-container :fishable-waters="filteredFishableWaters" />
+        </div>
+        <div v-else class="flex items-center justify-center w-full h-full">
+          <div class="flex space-x-2">
+            <div class="w-5 h-5 bg-olive-600 bg-opacity-75 rounded-full animate-loading"></div>
+            <div class="w-5 h-5 bg-olive-600 bg-opacity-75 rounded-full animate-loading animation-delay-100"></div>
+            <div class="w-5 h-5 bg-olive-600 bg-opacity-75 rounded-full animate-loading animation-delay-200"></div>
           </div>
-
         </div>
       </aside>
 
@@ -68,6 +54,7 @@ import ndowHeaderBar from '../../components/ndow-header-bar.vue'
 import FiltersPanelMobile from './filters-panel-mobile.vue'
 import MaplibreMap from '../../components/maplibre-map.vue'
 import MapLayersPanel from './map-layers-panel.vue'
+import fwListContainer from './fw-list-container.vue'
 
 export default {
   name: 'map-view',
@@ -75,7 +62,8 @@ export default {
     ndowHeaderBar,
     FiltersPanelMobile,
     MaplibreMap,
-    MapLayersPanel
+    MapLayersPanel,
+    fwListContainer
   },
 
   setup () {
