@@ -1,6 +1,13 @@
 import maplibregl from 'maplibre-gl'
+import { fishableWaters, huntUnits } from './maplibre-layers.js'
+
 const TILE_URL = 'http://localhost:3333'
 const MAPTILER_KEY = '2BL4ZBQCqs6NfOUgnKGy'
+
+export const mapLayers = [
+  fishableWaters,
+  huntUnits
+]
 
 export const addFwSource = (map) => {
   const source = {

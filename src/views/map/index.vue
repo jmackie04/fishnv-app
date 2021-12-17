@@ -10,11 +10,7 @@
         id="map" 
         class="relative block min-w-0 flex-1 lg:order-last bg-blue-300"
       >
-        <maplibre-map
-          ref="child"
-          @update:moveend="syncUrl"
-          @toggle:maplayers="toggleLayers"
-        />
+        <maplibre-map @update:moveend="syncUrl" />
       </section>
 
       <!-- side bar -->
@@ -39,18 +35,14 @@
 
     </div>
 
-    <map-layers-panel
-      :open="mapLayersPanelVisible"
-      @panel:close="toggleLayers"
-      @layers:switch-basemap="setBasemap"
-    />
     <filters-panel-mobile />
   </div>
 </template>
 
 <script>
-import { watch, ref } from 'vue'
+import { watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+
 import useFishableWaters from '../../composables/use-fishable-waters.js'
 import useMobileMenu from '../../composables/use-mobile-menu.js'
 import useBreakpoints from '../../composables/use-breakpoints.js'
@@ -58,7 +50,6 @@ import useBreakpoints from '../../composables/use-breakpoints.js'
 import ndowHeaderBar from '../../components/ndow-header-bar.vue'
 import FiltersPanelMobile from './filters-panel-mobile.vue'
 import MaplibreMap from '../../components/maplibre-map.vue'
-import MapLayersPanel from './map-layers-panel.vue'
 import fwListContainer from './fw-list-container.vue'
 
 export default {
@@ -67,7 +58,6 @@ export default {
     ndowHeaderBar,
     FiltersPanelMobile,
     MaplibreMap,
-    MapLayersPanel,
     fwListContainer
   },
 
@@ -93,15 +83,9 @@ export default {
     )
 
     // map interactions
-    const child = ref(null)
     const route = useRoute()
     const router = useRouter()
-    const mapLayersPanelVisible = ref(false)
     const syncUrl = ({ bounds, ...layout }) => { router.replace({ query: { ...route.query, ...layout } }) }
-    const toggleLayers = () => { mapLayersPanelVisible.value = !mapLayersPanelVisible.value; console.log({ mapLayersPanelVisible }) }
-    const setBasemap = (payload) => {
-      child.value.maplibreObject.setStyle(payload.style)
-    }
 
     return {
       fishableWaters,
@@ -121,11 +105,7 @@ export default {
       breakpoints,
 
       // map interactions
-      child,
-      syncUrl,
-      mapLayersPanelVisible,
-      toggleLayers,
-      setBasemap
+      syncUrl
     }
   }
 }

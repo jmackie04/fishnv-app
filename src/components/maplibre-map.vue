@@ -5,16 +5,23 @@
     @click:recenter="recenter"
     @click:layers="toggleLayers"
   />
+  <map-layers-panel
+      :open="mapLayersPanelVisible"
+      @panel:close="toggleLayers"
+      @layers:switch-basemap="setBasemap"
+  />
 </template>
 
 <script>
-import { onMounted, reactive, computed } from 'vue'
+import { onMounted, reactive, computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import maplibregl from 'maplibre-gl'
 
-// import { addFishableWaters, addFwLayer, addFwSource } from '../lib/maplibre.js'
 import { geolocate as geolocation } from '../lib/geolocation.js'
+import { mapLayers } from '../lib/maplibre.js'
+
 import MapMenuButton from '../views/map/map-menu-button.vue'
+import MapLayersPanel from '../views/map/map-layers-panel.vue'
 
 const TILE_URL = 'http://localhost:3333'
 const MAPTILER_KEY = '2BL4ZBQCqs6NfOUgnKGy'
@@ -25,7 +32,7 @@ const mapInit = {
 
 export default {
   name: 'maplibre-map',
-  components: { MapMenuButton },
+  components: { MapMenuButton, MapLayersPanel },
   emits: ['update:moveend', 'toggle:maplayers'],
   setup (_, context) {
     const route = useRoute()
@@ -44,30 +51,17 @@ export default {
       }, options)
       const map = new maplibregl.Map(mapOptions)
 
-      map.on('load', () => {
-        addFishableWaters(map)
-
-                // hunt units
-        map.addSource('units', {
-          type: 'vector',
-          tiles: [`https://huntnv.apis.wildlifenv.com/features/hunt_units_open_full/{z}/{x}/{y}.pbf`]
+      map.on('style.load', () => {
+        mapLayers.forEach(def => {
+          Object.keys(def.source).forEach(source => {
+            console.log( { source, def: def.source[source] })
+            map.addSource(source, def.source[source])
+          })
+          def.layers.forEach(layer => {
+            console.log({ layer })
+            map.addLayer(layer)
+          })
         })
-        map.addLayer({
-          id: 'units',
-          type: 'line',
-          source: 'units',
-          'source-layer': 'hunt_units_open_full',
-          layout: {
-            'line-cap': 'round',
-            'line-join': 'round'
-          },
-          paint: {
-            'line-opacity': 1,
-            'line-color': '#f29645',
-            'line-width': 2
-          }
-        })
-
       })
 
       // zoom, pan interactions. emit events
@@ -82,49 +76,6 @@ export default {
         const features = map.queryRenderedFeatures(e.point)
         console.log(features)
       })
-
-      map.on('styledata', (e) => {
-        // console.log({ e })
-        addFishableWaters()
-      })
-
-      // usefull functions
-      function addFishableWaters () {
-        const source = {
-          type: 'vector',
-          tiles: [`${TILE_URL}/features/fishable_waters/{z}/{x}/{y}.pbf`]
-        }
-        
-        map.addSource('fishable-waters', source)
-
-        map.addLayer({
-          id: 'fw-lines',
-          type: 'line',
-          source: 'fishable-waters',
-          'source-layer': 'fishable_waters',
-          layout: {
-            'line-cap': 'round',
-            'line-join': 'round'
-          },
-          paint: {
-            'line-opacity': 1,
-            'line-color': '#589fd6',
-            'line-width': 2
-          }
-        })
-
-        map.addLayer({
-          id: 'fw-polygons',
-          type: 'fill',
-          source: 'fishable-waters',
-          'source-layer': 'fishable_waters',
-          paint: {
-            'fill-opacity': 0.75,
-            'fill-color': '#589fd6'
-          },
-          filter: ['==', '$type', 'Polygon']
-        })
-      }
 
       return map
     }
@@ -148,15 +99,20 @@ export default {
     const recenter = () => {
       maplibreObject.value.flyTo(mapInit)
     }
-    const toggleLayers = () => {
-      context.emit('toggle:maplayers')
-    }
+
+    // map layer things
+    const mapLayersPanelVisible = ref(false)
+    const toggleLayers = () => { mapLayersPanelVisible.value = !mapLayersPanelVisible.value }
+    const setBasemap = (payload) => { maplibreObject.value.setStyle(payload.style) }
 
     return {
       maplibreObject,
       geolocate,
       recenter,
-      toggleLayers
+
+      toggleLayers,
+      mapLayersPanelVisible,
+      setBasemap
     }
   }
 }
