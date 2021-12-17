@@ -11,6 +11,7 @@
         class="relative block min-w-0 flex-1 lg:order-last bg-blue-300"
       >
         <maplibre-map
+          ref="child"
           @update:moveend="syncUrl"
           @toggle:maplayers="toggleLayers"
         />
@@ -38,7 +39,11 @@
 
     </div>
 
-    <map-layers-panel :open="mapLayersPanelVisible" @panel:close="toggleLayers" />
+    <map-layers-panel
+      :open="mapLayersPanelVisible"
+      @panel:close="toggleLayers"
+      @layers:switch-basemap="setBasemap"
+    />
     <filters-panel-mobile />
   </div>
 </template>
@@ -88,13 +93,15 @@ export default {
     )
 
     // map interactions
+    const child = ref(null)
     const route = useRoute()
     const router = useRouter()
     const mapLayersPanelVisible = ref(false)
-    const syncUrl = ({ bounds, ...layout }) => {
-      router.replace({ query: { ...route.query, ...layout } })
-    }
+    const syncUrl = ({ bounds, ...layout }) => { router.replace({ query: { ...route.query, ...layout } }) }
     const toggleLayers = () => { mapLayersPanelVisible.value = !mapLayersPanelVisible.value; console.log({ mapLayersPanelVisible }) }
+    const setBasemap = (payload) => {
+      child.value.maplibreObject.setStyle(payload.style)
+    }
 
     return {
       fishableWaters,
@@ -114,9 +121,11 @@ export default {
       breakpoints,
 
       // map interactions
+      child,
       syncUrl,
       mapLayersPanelVisible,
-      toggleLayers
+      toggleLayers,
+      setBasemap
     }
   }
 }

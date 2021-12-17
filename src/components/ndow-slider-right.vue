@@ -30,9 +30,7 @@
                 <div class="mt-6 relative flex-1 px-4">
                   <!-- Replace with your content -->
                   <div class="absolute inset-0 px-4">
-                    <div class="h-full bg-white rounded border-2 border-dashed border-gray-200" aria-hidden="true">
-                      <slot name="content">content here</slot>
-                    </div>
+                    <slot name="content">content here</slot>
                   </div>
                   <!-- /End replace -->
                 </div>
