@@ -3,7 +3,7 @@
     <Dialog as="div" class="fixed z-40 lg:z-10 overflow-hidden">
       <div class="absolute overflow-hidden">
 
-        <div class="fixed inset-0 lg:top-16 lg:bottom-0 lg:left-20 pr-0 lg:pr-10 max-w-full flex">
+        <div class="fixed inset-0 lg:inset-auto lg:top-16 lg:bottom-0 lg:left-20 max-w-full flex">
           <TransitionChild as="template"
             enter="transform transition ease-in-out duration-500 sm:duration-700"
             enter-from="-translate-x-full"
