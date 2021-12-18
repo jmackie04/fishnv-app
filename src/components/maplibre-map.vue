@@ -1,24 +1,28 @@
 <template>
-  <div id="maplibre-map" class="relative w-full h-full" />
+  <div id="maplibre-map" ref="root" class="relative w-full h-full" />
   <map-menu-button
     @click:geolocate="geolocate"
     @click:recenter="recenter"
-    @click:layers="toggleLayers"
+    @click:layers="toggleSlider"
   />
   <map-layers-panel
-      :open="mapLayersPanelVisible"
-      @panel:close="toggleLayers"
-      @layers:switch-basemap="setBasemap"
+    :open="sliderOpen"
+    :basemaps="basemaps"
+    :layers="layers"
+    @panel:close="toggleSlider"
+    @layers:switch-basemap="setBasemap"
+    @layers:toggle-layer="toggleLayer"
   />
 </template>
 
 <script>
-import { onMounted, reactive, computed, ref } from 'vue'
+import { onMounted, reactive, computed, ref, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
 import maplibregl from 'maplibre-gl'
 
 import { geolocate as geolocation } from '../lib/geolocation.js'
-import { mapLayers } from '../lib/maplibre.js'
+import { renderMaplibre } from '../lib/maplibre.js'
+import { basemaps as styles, layers as overlays } from '../lib/maplibre-layers.js'
 
 import MapMenuButton from '../views/map/map-menu-button.vue'
 import MapLayersPanel from '../views/map/map-layers-panel.vue'
@@ -34,85 +38,82 @@ export default {
   name: 'maplibre-map',
   components: { MapMenuButton, MapLayersPanel },
   emits: ['update:moveend', 'toggle:maplayers'],
-  setup (_, context) {
+  setup (props, { emit }) {
     const route = useRoute()
-
-    let blueprint = reactive({
+    const root = ref(null)
+    const blueprint = reactive({
+      ready: false,
       maplibreRef: {},
-      currentPosition: []
+      basemaps: styles,
+      layers: overlays
     })
+    const map = computed(() => blueprint.maplibreRef)
+    const ready = computed(() => blueprint.ready)
+    const layers = computed(() => blueprint.layers)
+    const basemaps = computed(() => blueprint.basemaps)
 
-    const renderMap = (options) => {
-      const mapOptions = Object.assign({
-        container: 'maplibre-map',
-        style: `https://api.maptiler.com/maps/voyager/style.json?key=${MAPTILER_KEY}`,
-        center: [-116.6554, 38.55],
-        zoom: 6
-      }, options)
-      const map = new maplibregl.Map(mapOptions)
-
-      map.on('style.load', () => {
-        mapLayers.forEach(def => {
-          Object.keys(def.source).forEach(source => {
-            console.log( { source, def: def.source[source] })
-            map.addSource(source, def.source[source])
-          })
-          def.layers.forEach(layer => {
-            console.log({ layer })
-            map.addLayer(layer)
-          })
-        })
-      })
-
-      // zoom, pan interactions. emit events
-      map.on('moveend', () => {
-        const center = map.getCenter()
-        const zoom = map.getZoom()
-        const bounds = map.getBounds()
-        context.emit('update:moveend', { z: zoom, x: center.lng, y: center.lat, bounds })
-      })
-
-      map.on('click', (e) => {
-        const features = map.queryRenderedFeatures(e.point)
-        console.log(features)
-      })
-
-      return map
-    }
-
-    onMounted(() => {
+    onMounted(async () => {
       const options = {
+        container: root.value,
         center: [route.query.x ?? -116.6554, route.query.y ?? 38.55],
         zoom: route.query.z ?? 6
       }
-      const map = renderMap(options)
-      blueprint.maplibreRef = map
+      blueprint.maplibreRef = renderMaplibre(options, blueprint.layers)
+      blueprint.ready = true
+
+      await nextTick(() => {
+        map.value.on('moveend', () => {
+          const center = map.value.getCenter()
+          const zoom = map.value.getZoom()
+          const bounds = map.value.getBounds()
+          emit('update:moveend', { z: zoom, x: center.lng, y: center.lat, bounds })
+        })
+      })
     })
 
-    const maplibreObject = computed(() => blueprint.maplibreRef)
-
-    // map menu click methods
+    // map menu functions
     const geolocate = async () => {
       const { coords } = await geolocation()
-      maplibreObject.value.flyTo({ center: [coords.longitude, coords.latitude], zoom: 11 })
+      map.value.flyTo({ center: [coords.longitude, coords.latitude], zoom: 11 })
     }
     const recenter = () => {
-      maplibreObject.value.flyTo(mapInit)
+      map.value.flyTo(mapInit)
     }
 
-    // map layer things
-    const mapLayersPanelVisible = ref(false)
-    const toggleLayers = () => { mapLayersPanelVisible.value = !mapLayersPanelVisible.value }
-    const setBasemap = (payload) => { maplibreObject.value.setStyle(payload.style) }
+    // map layer slider panel
+    const sliderOpen = ref(false)
+    const toggleSlider = () => { sliderOpen.value = !sliderOpen.value}
+    const setBasemap = (payload) => {
+      map.value.setStyle(payload.style)
+      blueprint.basemaps.forEach(basemap => basemap.active = payload.name === basemap.name)
+    }
+    const toggleLayer = (payload) => {
+      blueprint.layers.forEach(def => {
+        if (def.name === payload.name) {
+          def.active = !def.active
+          const layerIds = def.layers.map(layer => layer.id)
+          layerIds.forEach(id => {
+            map.value.setLayoutProperty(id, 'visibility', def.active ? 'visible' : 'none')
+          })
+        }
+      })
+    }
+
 
     return {
-      maplibreObject,
+      root,
+      ready,
+      layers,
+      basemaps,
+      map,
+
       geolocate,
       recenter,
 
-      toggleLayers,
-      mapLayersPanelVisible,
-      setBasemap
+      sliderOpen,
+      toggleSlider,
+      setBasemap,
+      toggleLayer
     }
   }
 }

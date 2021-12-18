@@ -15,11 +15,11 @@
             <div class="w-screen lg:max-w-md">
               <div class="h-full flex flex-col py-6 bg-gray-100 shadow-xl overflow-y-scroll">
                 <div class="px-4">
-                  <div class="flex items-start justify-between">
+                  <div class="flex items-start justify-between space-x-6">
                     <DialogTitle class="text-lg text-oxford-700">
                       <slot name="title">Panel Title</slot>
                     </DialogTitle>
-                    <div class="ml-3 h-7 flex items-center">
+                    <div class="h-7 flex items-center">
                       <button type="button" class="rounded text-gray-400 hover:text-olive-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-olive-500" @click="close">
                         <span class="sr-only">Close panel</span>
                         <XIcon class="h-6 w-6" aria-hidden="true" />

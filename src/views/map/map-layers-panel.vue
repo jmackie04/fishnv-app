@@ -1,12 +1,31 @@
 <template>
   <ndow-slider-right :open="open" @close="close">
-    <template #title>Layers and Basemaps</template>
+    <template #title>
+      <h2>Layers and Basemaps</h2>
+      <p class="text-sm font-light mt-1">
+        Click any of the basemap or layers below to change the layers on the map.
+        Only one basemap can be active at a time. Many layers can be added at once.
+      </p>
+    </template>
 
     <template #content>
-      <div class="h-full rounded">
-        <div class="flex flex-col w-full space-y-2">
-          <map-layers-card v-for="(layer, index) in layers" :key="index" :map-layer="layer" @activate="toggleLayer" />
+      <div class="h-full space-y-8">
+
+        <div>
+          <h3 class="pl-1.5 text-lg text-gray-600">Basemaps</h3>
+          <div class="mt-2 flex flex-col w-full space-y-2">
+            <map-layers-card v-for="(basemap, index) in basemaps" :key="index" :map-layer="basemap" @activate="switchBasemap" />
+          </div>
         </div>
+        
+        <div>
+          <h3 class="pl-1.5 text-lg text-gray-600">Layers</h3>
+          <div class="mt-2 flex flex-col w-full space-y-2">
+            <map-layers-card v-for="(layer, index) in layers" :key="index" :map-layer="layer" @activate="toggleLayer" />
+          </div>
+        </div>
+
+
       </div>
     </template>
   </ndow-slider-right>
@@ -18,27 +37,6 @@ import { ref } from 'vue'
 import NdowSliderRight from '../../components/ndow-slider-right.vue'
 import MapLayersCard from './map-layers-card.vue'
 
-const mapLayers = [
-  {
-    name: 'voyager',
-    description: 'A simple, light colored basemap.',
-    type: 'basemap',
-    active: true,
-    layerOpacity: 0.75,
-    thumbnail: 'https://cloud.maptiler.com/static/img/maps/voyager.png?t=1634127409',
-    style: `https://api.maptiler.com/maps/voyager/style.json?key=BJ5Us337tUIPtCCZeKV8` 
-  },
-  {
-    name: 'outdoor',
-    description: 'A topographic basemap with hillshade.',
-    type: 'basemap',
-    active: false,
-    layerOpacity: 0.75,
-    thumbnail: 'https://cloud.maptiler.com/static/img/maps/outdoor.png?t=1634127409',
-    style: `https://api.maptiler.com/maps/outdoor/style.json?key=BJ5Us337tUIPtCCZeKV8` 
-  }
-]
-
 export default {
   components: {
     NdowSliderRight,
@@ -48,21 +46,26 @@ export default {
     open: {
       type: Boolean,
       required: true
+    },
+    basemaps: {
+      type: Array,
+      required: true
+    },
+    layers: {
+      type: Array,
+      required: true
     }
   },
-  emits: ['panel:close', 'layers:switch-basemap'],
-  setup (_, { emit }) {
+  emits: ['panel:close', 'layers:switch-basemap', 'layers:toggle-layer'],
+  setup (props, { emit }) {
     const close = () => {
       emit('panel:close')
     }
 
-    const layers = ref(mapLayers)
-    const toggleLayer = (payload) => {
-      layers.value.forEach(layer => { layer.active = payload.name === layer.name })
-      emit('layers:switch-basemap', payload)
-    }
+    const switchBasemap = (payload) => { emit('layers:switch-basemap', payload) }
+    const toggleLayer = (payload) => { emit('layers:toggle-layer', payload) }
 
-    return { close, layers, toggleLayer }
+    return { close, switchBasemap, toggleLayer }
   }
 }
 </script>
