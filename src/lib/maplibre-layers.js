@@ -8,11 +8,18 @@ export const basemaps = [
     style: `https://api.maptiler.com/maps/voyager/style.json?key=BJ5Us337tUIPtCCZeKV8` 
   },
   {
-    name: 'outdoor',
+    name: 'topo',
     description: 'A topographic basemap with hillshade.',
     active: false,
     thumbnail: 'https://cloud.maptiler.com/static/img/maps/outdoor.png?t=1634127409',
-    style: `https://api.maptiler.com/maps/outdoor/style.json?key=BJ5Us337tUIPtCCZeKV8` 
+    style: `https://api.maptiler.com/maps/topo/style.json?key=BJ5Us337tUIPtCCZeKV8` 
+  },
+  {
+    name: 'satellite',
+    description: 'A satellite map with labels.',
+    active: false,
+    thumbnail: 'https://cloud.maptiler.com/static/img/maps/hybrid.png?t=1634127409',
+    style: 'https://api.maptiler.com/maps/hybrid/style.json?key=BJ5Us337tUIPtCCZeKV8'
   }
 ]
 
@@ -22,7 +29,7 @@ export const fishableWaters = {
   id: 'fishable-waters',
   description: 'Fishable waters of Nevada.',
   active: true,
-  thumbnail: 'https://cloud.maptiler.com/static/img/tiles/terrain-quantized-mesh.png?t=1634127409',
+  thumbnail: 'https://ndow-cdn.s3.us-west-2.amazonaws.com/maptile-previews/fishable-waters.png',
   source: {
     'fishable-waters': {
       type: 'vector',
@@ -68,7 +75,7 @@ export const huntUnits = {
   id: 'hunt-units',
   description: 'NDOW hunt units.',
   active: true,
-  thumbnail: 'https://cloud.maptiler.com/static/img/tiles/terrain-quantized-mesh.png?t=1634127409',
+  thumbnail: 'https://ndow-cdn.s3.us-west-2.amazonaws.com/maptile-previews/hunt-units.png',
   source: {
     'hunt-units': {
       type: 'vector',
@@ -117,7 +124,40 @@ export const huntUnits = {
   ]
 }
 
+export const contours = {
+  name: 'contours',
+  id: 'contours',
+  description: 'Contour lines in meters',
+  active: false,
+  thumbnail: 'https://ndow-cdn.s3.us-west-2.amazonaws.com/maptile-previews/contours.png',
+  source: {
+    'contours': {
+      type: 'vector',
+      tiles: ['https://api.maptiler.com/tiles/contours/{z}/{x}/{y}.pbf?key=BJ5Us337tUIPtCCZeKV8']
+    }
+  },
+  layers: [
+    {
+      id: 'contours',
+      type: 'line',
+      source: 'contours',
+      'source-layer': 'contour',
+      layout: {
+        visibility: 'none',
+        'line-cap': 'round',
+        'line-join': 'round'
+      },
+      paint: {
+        'line-opacity': 0.6,
+        'line-color': '#7a9e7f',
+        'line-width': 1
+      }
+    }
+  ]
+}
+
 export const layers = [
   fishableWaters,
-  huntUnits
+  huntUnits,
+  contours
 ]

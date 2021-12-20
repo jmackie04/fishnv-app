@@ -12,6 +12,7 @@ export const renderMaplibre = (options, layers) => {
   }, options))
   
   map.on('style.load', () => {
+    console.log({ layers: JSON.parse(JSON.stringify(layers)) })
     layers
       .forEach(def => {
         const sources = Object.keys(def.source)

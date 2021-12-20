@@ -89,11 +89,14 @@ export default {
     }
     const toggleLayer = (payload) => {
       blueprint.layers.forEach(def => {
+        console.log({ def: JSON.parse(JSON.stringify(def)) })
         if (def.name === payload.name) {
           def.active = !def.active
           const layerIds = def.layers.map(layer => layer.id)
-          layerIds.forEach(id => {
-            map.value.setLayoutProperty(id, 'visibility', def.active ? 'visible' : 'none')
+          layerIds.forEach((id, i) => {
+            const visibility = def.active ? 'visible' : 'none'
+            map.value.setLayoutProperty(id, 'visibility', visibility)
+            def.layers[i].layout.visibility = visibility
           })
         }
       })
