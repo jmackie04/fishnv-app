@@ -28,7 +28,7 @@
         <PopoverPanel
           class="absolute z-10 w-screen max-w-sm px-4 mt-2 transform sm:px-0 right-0"
         >
-          <div class="overflow-hidden rounded shadow-xl ring-1 ring-gray-300">
+          <div class="overflow-auto rounded shadow-xl ring-1 ring-gray-300 max-h-adj-vh">
             <div class="relative grid gap-8 bg-white p-4">
               <slot name="content">Content goes here</slot>
             </div>
@@ -55,3 +55,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.max-h-adj-vh {
+  max-height: calc(95vh - 5rem);
+}
+</style>
