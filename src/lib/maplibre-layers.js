@@ -1,3 +1,6 @@
+const MAPTILER_KEY = import.meta.env.VITE_MAPTILER_KEY
+const TILE_URL = import.meta.env.VITE_TILE_URL
+
 // basemaps layers
 export const basemaps = [
   {
@@ -5,21 +8,21 @@ export const basemaps = [
     description: 'A simple, light colored basemap.',
     active: true,
     thumbnail: 'https://cloud.maptiler.com/static/img/maps/voyager.png?t=1634127409',
-    style: `https://api.maptiler.com/maps/voyager/style.json?key=BJ5Us337tUIPtCCZeKV8` 
+    style: `https://api.maptiler.com/maps/voyager/style.json?key=${MAPTILER_KEY}` 
   },
   {
     name: 'topo',
     description: 'A topographic basemap with hillshade.',
     active: false,
     thumbnail: 'https://cloud.maptiler.com/static/img/maps/outdoor.png?t=1634127409',
-    style: `https://api.maptiler.com/maps/topo/style.json?key=BJ5Us337tUIPtCCZeKV8` 
+    style: `https://api.maptiler.com/maps/topo/style.json?key=${MAPTILER_KEY}` 
   },
   {
     name: 'satellite',
     description: 'A satellite map with labels.',
     active: false,
     thumbnail: 'https://cloud.maptiler.com/static/img/maps/hybrid.png?t=1634127409',
-    style: 'https://api.maptiler.com/maps/hybrid/style.json?key=BJ5Us337tUIPtCCZeKV8'
+    style: `https://api.maptiler.com/maps/hybrid/style.json?key=${MAPTILER_KEY}`
   }
 ]
 
@@ -33,7 +36,7 @@ export const fishableWaters = {
   source: {
     'fishable-waters': {
       type: 'vector',
-      tiles: ['https://fishnv.apis.wildlifenv.com/features/fishable_waters/{z}/{x}/{y}.pbf']
+      tiles: [`${TILE_URL}/features/fishable_waters/{z}/{x}/{y}.pbf`]
     }
   },
   layers: [
@@ -74,7 +77,7 @@ export const huntUnits = {
   name: 'hunt units',
   id: 'hunt-units',
   description: 'NDOW hunt units.',
-  active: true,
+  active: false,
   thumbnail: 'https://ndow-cdn.s3.us-west-2.amazonaws.com/maptile-previews/hunt-units.png',
   source: {
     'hunt-units': {
@@ -93,7 +96,7 @@ export const huntUnits = {
       source: 'hunt-units',
       'source-layer': 'hunt_units_open_full',
       layout: {
-        visibility: 'visible',
+        visibility: 'none',
         'line-cap': 'round',
         'line-join': 'round'
       },
@@ -109,7 +112,7 @@ export const huntUnits = {
       source: 'hunt-unit-labels',
       'source-layer': 'hunt_unit_labels',
       layout: {
-        visibility: 'visible',
+        visibility: 'none',
         'text-font': ['Open Sans Regular'],
         'text-field': ['get', 'display_name'],
         'text-size': 16
@@ -159,5 +162,5 @@ export const contours = {
 export const layers = [
   fishableWaters,
   huntUnits,
-  contours
+  // contours
 ]

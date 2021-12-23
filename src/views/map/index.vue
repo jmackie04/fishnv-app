@@ -10,7 +10,7 @@
         id="map" 
         class="relative block min-w-0 flex-1 lg:order-last bg-blue-300"
       >
-        <maplibre-map @update:moveend="syncUrl" />
+        <maplibre-map ref="maplibre" @update:moveend="syncUrl" />
       </section>
 
       <!-- side bar -->
@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { watch } from 'vue'
+import { watch, onMounted, nextTick, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 import useFishableWaters from '../../composables/use-fishable-waters.js'
@@ -51,6 +51,8 @@ import ndowHeaderBar from '../../components/ndow-header-bar.vue'
 import FiltersPanelMobile from './filters-panel-mobile.vue'
 import MaplibreMap from '../../components/maplibre-map.vue'
 import fwListContainer from './fw-list-container.vue'
+
+import { layers } from '../../lib/maplibre-layers.js'
 
 export default {
   name: 'map-view',
@@ -69,7 +71,8 @@ export default {
       filters,
       hasFilters,
       filteredFishableWaters,
-      totalFishableWaters
+      totalFishableWaters,
+      fwIds
     } = useFishableWaters()
     const { open: openMobileMenu, display, transitionDisplay } = useMobileMenu()
     
@@ -87,6 +90,22 @@ export default {
     const router = useRouter()
     const syncUrl = ({ bounds, ...layout }) => { router.replace({ query: { ...route.query, ...layout } }) }
 
+    // map methods
+    const maplibre = ref(null)
+    watch(fwIds, async (curr) => {
+      await nextTick()
+      maplibre.value.map.setFilter('fw-lines', curr)
+      maplibre.value.map.setFilter('fw-polygons', ['all', ['==', '$type', 'Polygon'], curr])
+
+      layers.forEach(def => {
+        def.layers.forEach((layer) => {
+          if (layer.id == 'fw-lines') layer.filter = curr
+          if (layer.id == 'fw-polygons') layer.filter = ['all', ['==', '$type', 'Polygon'], curr]
+        })
+      })
+    },
+    { deep: true })
+
     return {
       fishableWaters,
       isLoading,
@@ -95,6 +114,7 @@ export default {
       hasFilters,
       filteredFishableWaters,
       totalFishableWaters,
+      fwIds,
       
       // mobile menu method
       openMobileMenu,
@@ -105,7 +125,8 @@ export default {
       breakpoints,
 
       // map interactions
-      syncUrl
+      syncUrl,
+      maplibre
     }
   }
 }

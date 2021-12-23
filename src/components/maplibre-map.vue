@@ -27,8 +27,6 @@ import { basemaps as styles, layers as overlays } from '../lib/maplibre-layers.j
 import MapMenuButton from '../views/map/map-menu-button.vue'
 import MapLayersPanel from '../views/map/map-layers-panel.vue'
 
-const TILE_URL = 'http://localhost:3333'
-const MAPTILER_KEY = '2BL4ZBQCqs6NfOUgnKGy'
 const mapInit = {
   center: [-116.6554, 38.55],
   zoom: 6
@@ -67,6 +65,11 @@ export default {
           const zoom = map.value.getZoom()
           const bounds = map.value.getBounds()
           emit('update:moveend', { z: zoom, x: center.lng, y: center.lat, bounds })
+        })
+
+        map.value.on('click', (e) => {
+          const features = map.value.queryRenderedFeatures(e.point)
+          console.log({ features })
         })
       })
     })

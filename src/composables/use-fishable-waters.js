@@ -60,6 +60,14 @@ export default () => {
     if (!isLoading.value) return filteredFishableWaters.value.length
   })
 
+  const fwIds = computed(() => {
+    if (filteredFishableWaters.value) {
+      return ['in', 'id', ...filteredFishableWaters.value.map(fw => fw.id)]
+    } else {
+      undefined
+    }
+  })
+
   const clearFilters = () => {
     clearSelectedSpecies()
     clearSelectedWaterType()
@@ -73,6 +81,7 @@ export default () => {
     filters,
     hasFilters,
     filteredFishableWaters,
+    fwIds,
     totalFishableWaters,
     clearFilters
   }

@@ -1,7 +1,6 @@
 import maplibregl from 'maplibre-gl'
 
-const TILE_URL = 'http://localhost:3333'
-const MAPTILER_KEY = '2BL4ZBQCqs6NfOUgnKGy'
+const MAPTILER_KEY = import.meta.env.VITE_MAPTILER_KEY
 
 export const renderMaplibre = (options, layers) => {  
   const map = new maplibregl.Map(Object.assign({
@@ -12,7 +11,6 @@ export const renderMaplibre = (options, layers) => {
   }, options))
   
   map.on('style.load', () => {
-    console.log({ layers: JSON.parse(JSON.stringify(layers)) })
     layers
       .forEach(def => {
         const sources = Object.keys(def.source)
