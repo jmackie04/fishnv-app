@@ -1,5 +1,4 @@
 import Home from '../views/home/index.vue'
-import MapView from '../views/map/index.vue'
 import DevView from '../views/dev/index.vue'
 
 export const routes = [
@@ -14,6 +13,11 @@ export const routes = [
     name: 'map',
     component: () => import('../views/map/index.vue')
     // meta: { title: 'FishNV Map'}
+  },
+  {
+    path: '/waters',
+    name: 'waters',
+    component: () => import('../views/waters/index.vue')
   },
   {
     path: '/dev',
