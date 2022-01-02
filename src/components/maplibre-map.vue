@@ -18,7 +18,6 @@
 <script>
 import { onMounted, reactive, computed, ref, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
-import maplibregl from 'maplibre-gl'
 
 import { geolocate as geolocation } from '../lib/geolocation.js'
 import { renderMaplibre } from '../lib/maplibre.js'
@@ -36,7 +35,7 @@ export default {
   name: 'maplibre-map',
   components: { MapMenuButton, MapLayersPanel },
   emits: ['update:moveend', 'toggle:maplayers'],
-  setup (props, { emit }) {
+  setup(props, { emit }) {
     const route = useRoute()
     const root = ref(null)
     const blueprint = reactive({
@@ -59,7 +58,7 @@ export default {
       blueprint.maplibreRef = renderMaplibre(options, blueprint.layers)
       blueprint.ready = true
 
-      await nextTick(() => {
+      nextTick(() => {
         map.value.on('moveend', () => {
           const center = map.value.getCenter()
           const zoom = map.value.getZoom()
@@ -85,7 +84,7 @@ export default {
 
     // map layer slider panel
     const sliderOpen = ref(false)
-    const toggleSlider = () => { sliderOpen.value = !sliderOpen.value}
+    const toggleSlider = () => { sliderOpen.value = !sliderOpen.value }
     const setBasemap = (payload) => {
       map.value.setStyle(payload.style)
       blueprint.basemaps.forEach(basemap => basemap.active = payload.name === basemap.name)

@@ -7,7 +7,7 @@
 
       <div class="flex items-center space-x-2">
         <checkbox-option
-          class=""
+          class
           v-for="option in options"
           :key="option.id"
           :optionId="option.id"
@@ -16,7 +16,7 @@
         />
       </div>
       <pre class="mt-3"><code>{{ selected }}</code></pre>
-    
+
       <div class="mt-4">
         <filters-species v-model="species" @update:clearValue="clearSpecies" />
       </div>
@@ -25,16 +25,13 @@
     <div class="bg-white rounded mx-auto w-1/2 p-4">
       <h2 class="text-lg">Radio Group</h2>
 
-      <filtersWaterType />      
+      <filtersWaterType />
     </div>
-
-
   </div>
 </template>
 
 <script>
 import { ref } from 'vue'
-import inputCheckbox from '../../components/input-checkbox.vue'
 import checkboxOption from '../../components/checkbox-option.vue'
 import filtersSpecies from '../map/filters-species.vue'
 import filtersWaterType from '../map/filters-water-type.vue'
@@ -42,15 +39,14 @@ import filtersWaterType from '../map/filters-water-type.vue'
 export default {
   name: 'dev-view',
   components: {
-    inputCheckbox,
     checkboxOption,
     filtersSpecies,
     filtersWaterType
   },
 
-  setup () {
+  setup() {
     const apple = ref(true)
-    
+
     const selected = ref([])
     const options = ref([{
       id: 1,

@@ -69,7 +69,7 @@
 import FiltersSpecies from './filters-species.vue'
 import FiltersWaterType from './filters-water-type.vue'
 import FiltersLocations from './filters-locations.vue'
-import useMobileMenu from "../../composables/use-mobile-menu.js"
+import useMobileMenu from '../../composables/use-mobile-menu.js'
 import useFiltersSpecies from '../../composables/use-filters-species.js'
 import useFishableWaters from '../../composables/use-fishable-waters.js'
 

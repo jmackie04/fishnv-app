@@ -11,7 +11,7 @@ export const isString = val => {
   return typeof val === 'string'
 }
 
-export const isEmpty = val => { 
+export const isEmpty = val => {
   if (val === null) {
     return true
   }
@@ -24,7 +24,7 @@ export const isEmpty = val => {
     return true
   }
 
-  if (isArray(val) && val.length === 0 ) {
+  if (isArray(val) && val.length === 0) {
     return true
   }
 

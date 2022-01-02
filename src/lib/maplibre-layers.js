@@ -8,14 +8,14 @@ export const basemaps = [
     description: 'A simple, light colored basemap.',
     active: true,
     thumbnail: 'https://cloud.maptiler.com/static/img/maps/voyager.png?t=1634127409',
-    style: `https://api.maptiler.com/maps/voyager/style.json?key=${MAPTILER_KEY}` 
+    style: `https://api.maptiler.com/maps/voyager/style.json?key=${MAPTILER_KEY}`
   },
   {
     name: 'topo',
     description: 'A topographic basemap with hillshade.',
     active: false,
     thumbnail: 'https://cloud.maptiler.com/static/img/maps/outdoor.png?t=1634127409',
-    style: `https://api.maptiler.com/maps/topo/style.json?key=${MAPTILER_KEY}` 
+    style: `https://api.maptiler.com/maps/topo/style.json?key=${MAPTILER_KEY}`
   },
   {
     name: 'satellite',

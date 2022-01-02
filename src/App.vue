@@ -1,7 +1,13 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
   <div class="h-screen flex bg-gray-200">
-    <ndow-mobile-menu as="template" :navigation="navigation" :user="user" :mobile-menu-open="isMobileMenuOpen" @toggle-menu="closeMobileMenu()" />
+    <ndow-mobile-menu
+      as="template"
+      :navigation="navigation"
+      :user="user"
+      :mobile-menu-open="isMobileMenuOpen"
+      @toggle-menu="closeMobileMenu()"
+    />
 
     <!-- Static sidebar for desktop -->
     <ndow-sidebar-nav as="template" :navigation="navigation" :user="user" />
@@ -18,10 +24,8 @@
 <script>
 import { GlobeIcon, HomeIcon } from '@heroicons/vue/outline'
 import ndowSidebarNav from '@/components/ndow-sidebar-nav.vue'
-import ndowMobileNavbar from '@/components/ndow-mobile-navbar.vue'
 import ndowMobileMenu from '@/components/ndow-mobile-menu.vue'
 import useMobileMenu from '@/composables/use-mobile-menu.js'
-import NdowMobileNavbar from './components/ndow-mobile-navbar.vue'
 
 const user = {
   name: 'Emily Selman',
@@ -38,11 +42,9 @@ export default {
   name: 'MapPage',
   components: {
     ndowSidebarNav,
-    ndowMobileNavbar,
-    ndowMobileMenu,
-    NdowMobileNavbar
-},
-  setup () {
+    ndowMobileMenu
+  },
+  setup() {
     const { isOpen: isMobileMenuOpen, close: closeMobileMenu } = useMobileMenu()
 
     return {

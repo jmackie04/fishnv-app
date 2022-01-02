@@ -3,10 +3,7 @@ const colors = require('tailwindcss/colors')
 
 module.exports = {
   mode: 'jit',
-  purge: [
-    './index.html',
-    './src/**/*.{vue,js,ts,tsx,jsx}'
-  ],
+  purge: ['./index.html', './src/**/*.{vue,js,ts,tsx,jsx}'],
   darkMode: false, // or 'media' or 'class'
   theme: {
     colors: {
@@ -92,15 +89,13 @@ module.exports = {
           '100%': {
             transform: 'translateY(-66%)',
             'animation-timing-function': 'cubic-bezier(0.8, 0, 1, 1)'
-          },
+          }
         }
       }
-    },
+    }
   },
   variants: {
-    extend: {},
+    extend: {}
   },
-  plugins: [
-    require('@tailwindcss/forms')
-  ],
+  plugins: [require('@tailwindcss/forms')]
 }

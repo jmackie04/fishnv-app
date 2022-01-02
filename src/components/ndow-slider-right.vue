@@ -2,9 +2,9 @@
   <TransitionRoot as="template" :show="open">
     <Dialog as="div" class="fixed z-40 lg:z-10 overflow-hidden">
       <div class="absolute overflow-hidden">
-
         <div class="fixed inset-0 lg:inset-auto lg:top-16 lg:bottom-0 lg:left-20 max-w-full flex">
-          <TransitionChild as="template"
+          <TransitionChild
+            as="template"
             enter="transform transition ease-in-out duration-500 sm:duration-700"
             enter-from="-translate-x-full"
             enter-to="translate-x-0"
@@ -20,7 +20,11 @@
                       <slot name="title">Panel Title</slot>
                     </DialogTitle>
                     <div class="h-7 flex items-center">
-                      <button type="button" class="rounded text-gray-400 hover:text-olive-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-olive-500" @click="close">
+                      <button
+                        type="button"
+                        class="rounded text-gray-400 hover:text-olive-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-olive-500"
+                        @click="close"
+                      >
                         <span class="sr-only">Close panel</span>
                         <XIcon class="h-6 w-6" aria-hidden="true" />
                       </button>
@@ -44,14 +48,13 @@
 </template>
 
 <script>
-import { Dialog, DialogOverlay, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
+import { Dialog, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { XIcon } from '@heroicons/vue/outline'
 
 export default {
   name: 'ndow-slider-right',
   components: {
     Dialog,
-    DialogOverlay,
     DialogTitle,
     TransitionChild,
     TransitionRoot,
@@ -64,7 +67,7 @@ export default {
     }
   },
   emits: ['close'],
-  setup (_, { emit }) {
+  setup(_, { emit }) {
     const close = () => {
       emit('close')
     }

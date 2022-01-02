@@ -2,9 +2,7 @@
   <div class="text-gray-600 space-y-6">
     <div>
       <h2 class="text-lg text-gray-800">Select A Water Type</h2>
-      <p class="font-light text-sm">
-        This will filter the diplayed waters by the selected water type.
-      </p>
+      <p class="font-light text-sm">This will filter the diplayed waters by the selected water type.</p>
     </div>
 
     <!-- <RadioGroup v-model="selected">
@@ -35,7 +33,7 @@
           </div>
         </RadioGroupOption>
       </div>
-    </RadioGroup> -->
+    </RadioGroup>-->
 
     <inputRadioGroup :options="waterTypes" v-model="selected" />
 
@@ -44,12 +42,9 @@
         type="button"
         class="text-sm font-light text-gray-600 hover:text-red-500 hover:underline"
         @click="clearSelected"
-      >
-        Clear Selection
-      </button>
+      >Clear Selection</button>
     </div>
   </div>
-  
 </template>
 
 <script>
@@ -67,7 +62,7 @@ export default {
     // RadioGroupOption,
   },
   setup() {
-    const { state, setSelected, clearSelected } = useFiltersWaterType()
+    const { state, clearSelected } = useFiltersWaterType()
     const { waterTypes } = state
 
     /* 
@@ -78,7 +73,7 @@ export default {
     
     watch(selected, (selected) => { setSelected(selected) })
     */
-   const selected = toRef(state, 'selectedWaterType')
+    const selected = toRef(state, 'selectedWaterType')
 
     return {
       waterTypes,

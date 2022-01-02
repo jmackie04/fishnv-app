@@ -2,9 +2,9 @@
   <div class="text-gray-600 space-y-6">
     <div>
       <h2 class="text-lg text-gray-800">Select A Species</h2>
-      <p class="font-light text-sm">
-        This will filter the waters for the combination of species selected.
-      </p>
+      <p
+        class="font-light text-sm"
+      >This will filter the waters for the combination of species selected.</p>
     </div>
 
     <div class="space-y-2">
@@ -18,7 +18,7 @@
             :optionLabel="option.value"
             v-model="model"
           >{{ option.label }}</checkbox-option>
-      </div>
+        </div>
       </div>
     </div>
 
@@ -27,15 +27,13 @@
         type="button"
         class="text-sm font-light text-gray-600 hover:text-red-500 hover:underline"
         @click="clearSelection"
-      >
-        Clear Selection
-      </button>
+      >Clear Selection</button>
     </div>
   </div>
 </template>
 
 <script>
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import checkboxOption from '../../components/checkbox-option.vue'
 import useFiltersSpecies from '../../composables/use-filters-species.js'
 
@@ -54,7 +52,7 @@ export default {
     checkboxOption
   },
 
-  setup (props, { emit }) {
+  setup(props, { emit }) {
     const { state } = useFiltersSpecies()
     const { species, speciesGroups } = state
 
@@ -76,5 +74,4 @@ export default {
 </script>
 
 <style>
-
 </style>

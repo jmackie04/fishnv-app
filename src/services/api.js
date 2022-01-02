@@ -1,4 +1,3 @@
-import { reactive, ref } from 'vue'
 import axios from 'axios'
 
 const FishNvApi = axios.create({
@@ -13,7 +12,7 @@ const getFishableWaters = async () => {
   try {
     const response = await FishNvApi.get('fishable-waters')
     const { data, ...meta } = response
-    
+
     return {
       ok: true,
       data: data.slice(0, 5),

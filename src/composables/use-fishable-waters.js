@@ -1,7 +1,7 @@
-import { reactive, ref, computed, toRef } from 'vue'
+import { reactive, computed, toRef } from 'vue'
 import axios from 'axios'
 import { useAxios } from '@vueuse/integrations/useAxios'
-import { omitWith, pickTruthy } from '../lib/objects.js'
+import { omitWith } from '../lib/objects.js'
 import { isEmpty, contains } from '../lib/predicates.js'
 import useFiltersSpecies from './use-filters-species.js'
 import useFiltersWaterType from './use-filters-water-type.js'
@@ -38,7 +38,7 @@ export default () => {
   const { data: fishableWaters, isLoading, error } = useAxios('/fishable-waters', FishNvApi)
   const { state: speciesFilters, clearSelectedSpecies } = useFiltersSpecies()
   const { state: waterTypeFilters, clearSelected: clearSelectedWaterType } = useFiltersWaterType()
-  const { state: locationFilters, clearSelected: clearSelectedLocations  } = useFiltersLocation()
+  const { state: locationFilters, clearSelected: clearSelectedLocations } = useFiltersLocation()
   const { state: search } = useSearch()
 
   const _filters = reactive({
@@ -52,19 +52,23 @@ export default () => {
   const filters = computed(() => omitWith(_filters, isEmpty))
   const hasFilters = computed(() => !isEmpty(filters.value))
   const filteredFishableWaters = computed(() => {
-    if  (isLoading.value || !hasFilters.value ) return fishableWaters.value
+    if (isLoading.value || !hasFilters.value) return fishableWaters.value
 
     return filterFishableWaters(fishableWaters.value, filters.value)
   })
   const totalFishableWaters = computed(() => {
-    if (!isLoading.value) return filteredFishableWaters.value.length
+    if (!isLoading.value) {
+      return filteredFishableWaters.value.length
+    } else {
+      return 0
+    }
   })
 
   const fwIds = computed(() => {
     if (filteredFishableWaters.value) {
       return ['in', 'id', ...filteredFishableWaters.value.map(fw => fw.id)]
     } else {
-      undefined
+      return undefined
     }
   })
 

@@ -10,29 +10,35 @@
 
     <template #content>
       <div class="h-full space-y-8">
-        
         <div>
           <h3 class="pl-1.5 text-lg text-gray-600">Layers</h3>
           <div class="mt-2 flex flex-col w-full space-y-1">
-            <map-layers-card v-for="(layer, index) in layers" :key="index" :map-layer="layer" @activate="toggleLayer" />
+            <map-layers-card
+              v-for="(layer, index) in layers"
+              :key="index"
+              :map-layer="layer"
+              @activate="toggleLayer"
+            />
           </div>
         </div>
 
         <div>
           <h3 class="pl-1.5 text-lg text-gray-600">Basemaps</h3>
           <div class="mt-2 flex flex-col w-full space-y-1">
-            <map-layers-card v-for="(basemap, index) in basemaps" :key="index" :map-layer="basemap" @activate="switchBasemap" />
+            <map-layers-card
+              v-for="(basemap, index) in basemaps"
+              :key="index"
+              :map-layer="basemap"
+              @activate="switchBasemap"
+            />
           </div>
         </div>
-
       </div>
     </template>
   </ndow-slider-right>
 </template>
 
 <script>
-import { ref } from 'vue'
-
 import NdowSliderRight from '../../components/ndow-slider-right.vue'
 import MapLayersCard from './map-layers-card.vue'
 
@@ -56,7 +62,7 @@ export default {
     }
   },
   emits: ['panel:close', 'layers:switch-basemap', 'layers:toggle-layer'],
-  setup (props, { emit }) {
+  setup(props, { emit }) {
     const close = () => {
       emit('panel:close')
     }

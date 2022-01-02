@@ -3,13 +3,13 @@ export const createMachine = (def) => {
     value: def.initial,
     ...def,
 
-    transition (state, event) {
+    transition(state, event) {
       const allowedStates = Object.keys(def.states)
       const currentState = def.states[state]
       const transition = currentState?.transitions?.[event]
-      
+
       if (!transition) return machine.value
-      
+
       const nextState = transition?.target
 
       const value = typeof nextState !== 'function'

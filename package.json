@@ -4,15 +4,16 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
     "@vueuse/integrations": "^7.3.0",
     "axios": "^0.24.0",
     "maplibre-gl": "^1.15.2",
     "postcss-viewport-height-correction": "^1.1.1",
-    "vue": "^3.2.26",
-    "vue-router": "^4.0.12"
+    "vue-router": "^4.0.12",
+    "vue": "^3.2.26"
   },
   "devDependencies": {
     "@headlessui/vue": "^1.4.1",
@@ -21,6 +22,9 @@
     "@vitejs/plugin-vue": "^2.0.1",
     "@vue/compiler-sfc": "^3.2.6",
     "autoprefixer": "^10.3.4",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-vue": "^8.2.0",
+    "eslint": "^8.6.0",
     "postcss": "^8.3.6",
     "tailwindcss": "^2.2.15",
     "vite": "^2.7.2"

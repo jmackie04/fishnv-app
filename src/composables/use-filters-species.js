@@ -1,4 +1,4 @@
-import { reactive, readonly } from 'vue'
+import { reactive } from 'vue'
 
 const trout = [
   {

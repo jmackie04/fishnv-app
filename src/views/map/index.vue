@@ -7,7 +7,7 @@
       <!-- map section -->
       <section
         v-if="display === 'both' || display === 'map'"
-        id="map" 
+        id="map"
         class="relative block min-w-0 flex-1 lg:order-last bg-blue-300"
       >
         <maplibre-map ref="maplibre" @update:moveend="syncUrl" />
@@ -19,20 +19,21 @@
         class="relative z-10 w-full lg:w-120 lg:flex-shink-0 lg:order-first overflow-clip overflow-y-scroll shadow-sm"
       >
         <div v-if="!isLoading">
-          <div class="p-2 text-2xl text-oxford-600">
-            {{ totalFishableWaters }} Fishable Waters
-          </div>
+          <div class="p-2 text-2xl text-oxford-600">{{ totalFishableWaters }} Fishable Waters</div>
           <fw-list-container :fishable-waters="filteredFishableWaters" />
         </div>
         <div v-else class="flex items-center justify-center w-full h-full">
           <div class="flex space-x-2">
             <div class="w-5 h-5 bg-olive-600 bg-opacity-75 rounded-full animate-loading"></div>
-            <div class="w-5 h-5 bg-olive-600 bg-opacity-75 rounded-full animate-loading animation-delay-100"></div>
-            <div class="w-5 h-5 bg-olive-600 bg-opacity-75 rounded-full animate-loading animation-delay-200"></div>
+            <div
+              class="w-5 h-5 bg-olive-600 bg-opacity-75 rounded-full animate-loading animation-delay-100"
+            ></div>
+            <div
+              class="w-5 h-5 bg-olive-600 bg-opacity-75 rounded-full animate-loading animation-delay-200"
+            ></div>
           </div>
         </div>
       </aside>
-
     </div>
 
     <filters-panel-mobile />
@@ -40,7 +41,7 @@
 </template>
 
 <script>
-import { watch, onMounted, nextTick, ref } from 'vue'
+import { watch, nextTick, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 import useFishableWaters from '../../composables/use-fishable-waters.js'
@@ -63,7 +64,7 @@ export default {
     fwListContainer
   },
 
-  setup () {
+  setup() {
     const {
       fishableWaters,
       isLoading,
@@ -75,7 +76,7 @@ export default {
       fwIds
     } = useFishableWaters()
     const { open: openMobileMenu, display, transitionDisplay } = useMobileMenu()
-    
+
     const { breakpoints } = useBreakpoints()
     watch(
       () => breakpoints.w,
@@ -104,7 +105,7 @@ export default {
         })
       })
     },
-    { deep: true })
+      { deep: true })
 
     return {
       fishableWaters,
@@ -115,7 +116,7 @@ export default {
       filteredFishableWaters,
       totalFishableWaters,
       fwIds,
-      
+
       // mobile menu method
       openMobileMenu,
 

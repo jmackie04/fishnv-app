@@ -19,9 +19,8 @@ export const omit = (obj, props) =>
     {}
   )
 
-export const omitWith = (obj, fn) => 
+export const omitWith = (obj, fn) =>
   Object.keys(obj).reduce(
     (acc, key) => fn(obj[key]) ? { ...acc } : { ...acc, [key]: obj[key] },
     {}
   )
-  
