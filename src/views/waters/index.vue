@@ -107,9 +107,11 @@
         </div>
       </header>
 
-      <main class="bg-green-300 grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
-        <div class="h-96 md:h-full col-sapn-1 md:col-span-2 bg-white rounded shadow">map</div>
-        <div class="col-span-1 bg-white rounded shadow">Nearby Waters</div>
+      <main class="grid grid-cols-1 md:grid-cols-4 gap-4 p-4">
+        <div class="h-96 md:h-full col-sapn-1 md:col-span-3 bg-white rounded shadow">map</div>
+        <div class="col-span-1">
+          <nearby-waters-container :nearby-waters="data.nearby_waters" />
+        </div>
       </main>
 
       <pre><code lang="json">{{ data }}</code></pre>
@@ -120,6 +122,7 @@
 <script>
 import NdowError from '../../components/ndow-error.vue';
 import NdowLoading from '../../components/ndow-loading.vue';
+import NearbyWatersContainer from './nearby-waters-container.vue'
 
 import { getFishableWatersById } from '../../services/api.js';
 
@@ -127,7 +130,8 @@ export default {
   name: 'fishable-waters',
   components: {
     NdowError,
-    NdowLoading
+    NdowLoading,
+    NearbyWatersContainer
   },
   setup() {
     const { data, loading, error } = getFishableWatersById('f5719332-8135-481b-94dc-198956ed20d6')
