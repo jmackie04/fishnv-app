@@ -22,17 +22,7 @@
           <div class="p-2 text-2xl text-oxford-600">{{ totalFishableWaters }} Fishable Waters</div>
           <fw-list-container :fishable-waters="filteredFishableWaters" />
         </div>
-        <div v-else class="flex items-center justify-center w-full h-full">
-          <div class="flex space-x-2">
-            <div class="w-5 h-5 bg-olive-600 bg-opacity-75 rounded-full animate-loading"></div>
-            <div
-              class="w-5 h-5 bg-olive-600 bg-opacity-75 rounded-full animate-loading animation-delay-100"
-            ></div>
-            <div
-              class="w-5 h-5 bg-olive-600 bg-opacity-75 rounded-full animate-loading animation-delay-200"
-            ></div>
-          </div>
-        </div>
+        <ndow-loading v-else />
       </aside>
     </div>
 
@@ -49,6 +39,7 @@ import useMobileMenu from '../../composables/use-mobile-menu.js'
 import useBreakpoints from '../../composables/use-breakpoints.js'
 
 import ndowHeaderBar from '../../components/ndow-header-bar.vue'
+import NdowLoading from '../../components/ndow-loading.vue'
 import FiltersPanelMobile from './filters-panel-mobile.vue'
 import MaplibreMap from '../../components/maplibre-map.vue'
 import fwListContainer from './fw-list-container.vue'
@@ -61,7 +52,8 @@ export default {
     ndowHeaderBar,
     FiltersPanelMobile,
     MaplibreMap,
-    fwListContainer
+    fwListContainer,
+    NdowLoading
   },
 
   setup() {
