@@ -25,6 +25,10 @@ module.exports = {
         144: '36rem',
         156: '44rem'
       },
+      maxWidth: {
+        '8xl': '88rem',
+        '9xl': '96rem'
+      },
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans]
       },

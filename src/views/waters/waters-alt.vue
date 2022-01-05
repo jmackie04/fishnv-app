@@ -196,7 +196,7 @@
           </div>
 
           <div class="py-4 px-2">
-            <nearby-waters-container :nearby-waters="data.nearby_waters.slice(0, 9)" />
+            <nearby-waters-container-alt :nearby-waters="data.nearby_waters.slice(0, 9)" />
           </div>
         </main>
 
@@ -210,7 +210,7 @@
 import { computed } from 'vue'
 import NdowError from '../../components/ndow-error.vue'
 import NdowLoading from '../../components/ndow-loading.vue'
-import NearbyWatersContainer from './nearby-waters-container.vue'
+import NearbyWatersContainerAlt from './nearby-waters-container-alt.vue'
 import MaplibreMap from '../../components/maplibre-map.vue'
 
 import { getFishableWatersById } from '../../services/api.js'
@@ -220,7 +220,7 @@ export default {
   components: {
     NdowError,
     NdowLoading,
-    NearbyWatersContainer,
+    NearbyWatersContainerAlt,
     MaplibreMap
   },
   setup() {
