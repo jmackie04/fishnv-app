@@ -191,7 +191,9 @@
         </header>
 
         <main class="rounded border flex-grow mt-8 bg-gray-50 rounded-t-lg shadow space-y-6">
-          <div class="w-full h-96 lg:h-156 rounded-t-lg overflow-hidden border-b border-gray-300">
+          <div
+            class="relative w-full h-96 lg:h-156 rounded-t-lg overflow-hidden border-b border-gray-300"
+          >
             <maplibre-map />
           </div>
 
