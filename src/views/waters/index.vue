@@ -194,38 +194,40 @@
         <div class="rounded border flex-grow mt-0 lg:mt-16 space-y-4">
           <!-- map -->
           <div
-            class="lg:relative w-full h-96 lg:h-156 rounded overflow-hidden border-b border-gray-300"
+            class="lg:relative w-full h-96 lg:h-144 rounded shadow overflow-hidden border-b border-gray-300"
           >
             <maplibre-map ref="maplibre" @map:ready="centerMap" />
           </div>
 
           <!-- tabs etc. -->
-          <div class="bg-gray-50 rounded">
+          <div class="bg-gray-50 rounded shadow">
             <div>
-              <TabGroup :defaultIndex="0">
+              <TabGroup :defaultIndex="1">
                 <TabList
                   as="div"
                   class="-mb-px flex space-x-8 border-b border-gray-200 px-2 bg-gray-50 sticky -top-8 shadow-sm rounded-t"
                 >
                   <Tab as="template" v-slot="{ selected }">
                     <div
-                      :class="[selected ? 'border-olive-500 text-olive-500 font-medium' : 'border-transparent hover:text-gray-700 hover:border-gray-300', 'whitespace-nowrap text-gray-500 py-4 px-1 border-b-2']"
+                      :class="[selected ? 'border-olive-500 text-olive-500 font-medium' : 'border-transparent hover:text-gray-700 hover:border-gray-300', 'whitespace-nowrap text-gray-500 py-4 px-1 border-b-2 cursor-pointer']"
                     >Water Details</div>
                   </Tab>
                   <Tab as="template" v-slot="{ selected }">
                     <div
-                      :class="[selected ? 'border-olive-500 text-olive-500 font-medium' : 'border-transparent hover:text-gray-700 hover:border-gray-300', 'whitespace-nowrap text-gray-500 py-4 px-1 border-b-2']"
-                    >Trophy Fish</div>
+                      :class="[selected ? 'border-olive-500 text-olive-500 font-medium' : 'border-transparent hover:text-gray-700 hover:border-gray-300', 'whitespace-nowrap text-gray-500 py-4 px-1 border-b-2 cursor-pointer']"
+                    >Fish Caught</div>
                   </Tab>
                   <Tab as="template" v-slot="{ selected }">
                     <div
-                      :class="[selected ? 'border-olive-500 text-olive-500 font-medium' : 'border-transparent hover:text-gray-700 hover:border-gray-300', 'whitespace-nowrap text-gray-500 py-4 px-1 border-b-2']"
+                      :class="[selected ? 'border-olive-500 text-olive-500 font-medium' : 'border-transparent hover:text-gray-700 hover:border-gray-300', 'whitespace-nowrap text-gray-500 py-4 px-1 border-b-2 cursor-pointer']"
                     >Regulations</div>
                   </Tab>
                 </TabList>
-                <TabPanels class="p-2">
+                <TabPanels class>
                   <TabPanel>
-                    <nearby-waters-container :nearby-waters="data.nearby_waters" />
+                    <div class="p-2">
+                      <nearby-waters-container :nearby-waters="data.nearby_waters" />
+                    </div>
 
                     <h1>HTML Ipsum Presents</h1>
 
@@ -256,7 +258,11 @@
                       <li>Aliquam tincidunt mauris eu risus.</li>
                     </ul>
                   </TabPanel>
-                  <TabPanel>Content 2</TabPanel>
+                  <TabPanel>
+                    <div>
+                      <fish-entries-table :fish-entries="data.fish_entries" />
+                    </div>
+                  </TabPanel>
                   <TabPanel>Content 3</TabPanel>
                 </TabPanels>
               </TabGroup>
@@ -276,8 +282,9 @@ import { computed, ref, nextTick } from 'vue'
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import NdowError from '../../components/ndow-error.vue'
 import NdowLoading from '../../components/ndow-loading.vue'
-import NearbyWatersContainer from './nearby-waters-container.vue'
 import MaplibreMap from '../../components/maplibre-map.vue'
+import NearbyWatersContainer from './nearby-waters-container.vue'
+import FishEntriesTable from './fish-entries-table.vue'
 
 import { getFishableWatersById } from '../../services/api.js'
 
@@ -287,6 +294,7 @@ export default {
     NdowError,
     NdowLoading,
     NearbyWatersContainer,
+    FishEntriesTable,
     MaplibreMap,
     TabGroup,
     TabList,
