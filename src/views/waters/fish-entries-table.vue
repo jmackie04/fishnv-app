@@ -4,7 +4,10 @@
     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
         <div class="overflow-hidden">
-          <table class="min-w-full divide-y divide-gray-200">
+          <div v-if="!fishEntries.length" class="flex items-center justify-center">
+            <p class="p-4 text-gray-600">There hasn't been any fish entries submitted.</p>
+          </div>
+          <table v-else class="min-w-full divide-y divide-gray-200">
             <caption
               class="text-sm text-gray-500/80 p-2 text-right font-light"
             >The top five trophy fish caught for each species caught in this water.</caption>
