@@ -190,17 +190,77 @@
           </div>
         </aside>
 
-        <div
-          class="rounded border flex-grow mt-0 lg:mt-16 bg-gray-50 rounded-t-lg shadow space-y-6"
-        >
+        <!-- main content -->
+        <div class="rounded border flex-grow mt-0 lg:mt-16 space-y-4">
+          <!-- map -->
           <div
-            class="lg:relative w-full h-96 lg:h-156 rounded-t-lg overflow-hidden border-b border-gray-300"
+            class="lg:relative w-full h-96 lg:h-156 rounded overflow-hidden border-b border-gray-300"
           >
             <maplibre-map />
           </div>
 
-          <div class="py-4 px-2">
-            <nearby-waters-container :nearby-waters="data.nearby_waters.slice(0, 9)" />
+          <!-- tabs etc. -->
+          <div class="bg-gray-50 rounded">
+            <div class>
+              <TabGroup :defaultIndex="0">
+                <TabList
+                  as="div"
+                  class="-mb-px flex space-x-8 border-b border-gray-200 px-2 bg-gray-50 sticky -top-8 shadow-sm"
+                >
+                  <Tab as="template" v-slot="{ selected }">
+                    <div
+                      :class="[selected ? 'border-olive-500 text-olive-500 font-medium' : 'border-transparent hover:text-gray-700 hover:border-gray-300', 'whitespace-nowrap text-gray-500 py-4 px-1 border-b-2']"
+                    >Water Details</div>
+                  </Tab>
+                  <Tab as="template" v-slot="{ selected }">
+                    <div
+                      :class="[selected ? 'border-olive-500 text-olive-500 font-medium' : 'border-transparent hover:text-gray-700 hover:border-gray-300', 'whitespace-nowrap text-gray-500 py-4 px-1 border-b-2']"
+                    >Trophy Fish</div>
+                  </Tab>
+                  <Tab as="template" v-slot="{ selected }">
+                    <div
+                      :class="[selected ? 'border-olive-500 text-olive-500 font-medium' : 'border-transparent hover:text-gray-700 hover:border-gray-300', 'whitespace-nowrap text-gray-500 py-4 px-1 border-b-2']"
+                    >Regulations</div>
+                  </Tab>
+                </TabList>
+                <TabPanels class="p-2">
+                  <TabPanel>
+                    <nearby-waters-container :nearby-waters="data.nearby_waters" />
+
+                    <h1>HTML Ipsum Presents</h1>
+
+                    <p>
+                      <strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.
+                      <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed,
+                      <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui.
+                      <a
+                        href="#"
+                      >Donec non enim</a> in turpis pulvinar facilisis. Ut felis.
+                    </p>
+
+                    <h2>Header Level 2</h2>
+
+                    <ol>
+                      <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+                      <li>Aliquam tincidunt mauris eu risus.</li>
+                    </ol>
+
+                    <blockquote>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet congue. Ut a est eget ligula molestie gravida. Curabitur massa. Donec eleifend, libero at sagittis mollis, tellus est malesuada tellus, at luctus turpis elit sit amet quam. Vivamus pretium ornare est.</p>
+                    </blockquote>
+
+                    <h3>Header Level 3</h3>
+
+                    <ul>
+                      <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+                      <li>Aliquam tincidunt mauris eu risus.</li>
+                    </ul>
+                  </TabPanel>
+                  <TabPanel>Content 2</TabPanel>
+                  <TabPanel>Content 3</TabPanel>
+                </TabPanels>
+              </TabGroup>
+            </div>
           </div>
         </div>
 
@@ -212,6 +272,8 @@
 
 <script>
 import { computed } from 'vue'
+
+import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import NdowError from '../../components/ndow-error.vue'
 import NdowLoading from '../../components/ndow-loading.vue'
 import NearbyWatersContainer from './nearby-waters-container.vue'
@@ -225,7 +287,12 @@ export default {
     NdowError,
     NdowLoading,
     NearbyWatersContainer,
-    MaplibreMap
+    MaplibreMap,
+    TabGroup,
+    TabList,
+    Tab,
+    TabPanels,
+    TabPanel,
   },
   setup() {
     const { data, loading, error } = getFishableWatersById('f5719332-8135-481b-94dc-198956ed20d6')
@@ -260,6 +327,8 @@ export default {
 .cls-1 {
   fill: none;
   stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
   stroke-linecap: round;
   stroke-linejoin: round;
 }

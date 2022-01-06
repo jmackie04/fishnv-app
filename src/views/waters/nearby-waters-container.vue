@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h2 class="py-2 pl-1 text-2xl tracking-wide font-light text-gray-700">Nearby Waters</h2>
-    <div class="mt-2 overflow-hidden rounded">
+    <h2 class="pt-3 pb-2.5 pl-1 text-xl tracking-wide font-light text-gray-700">Nearby Waters</h2>
+    <div class>
       <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
         <nearby-waters-item
           v-for="water in nearbyWaters"
