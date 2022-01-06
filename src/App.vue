@@ -15,7 +15,7 @@
     <div class="flex-1 min-w-0 flex flex-col">
       <main class="flex-1 flex overflow-hidden">
         <!-- <router-view :key="$route.fullPath" /> -->
-        <router-view />
+        <router-view :key="$route.path" />
       </main>
     </div>
   </div>

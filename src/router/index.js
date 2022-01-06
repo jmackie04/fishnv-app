@@ -15,9 +15,10 @@ export const routes = [
     // meta: { title: 'FishNV Map'}
   },
   {
-    path: '/waters',
+    path: '/waters/:id',
     name: 'waters',
-    component: () => import('../views/waters/index.vue')
+    component: () => import('../views/waters/index.vue'),
+    props: true
   },
   {
     path: '/dev',

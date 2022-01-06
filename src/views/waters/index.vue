@@ -202,7 +202,7 @@
           <!-- tabs etc. -->
           <div class="bg-gray-50 rounded shadow">
             <div>
-              <TabGroup :defaultIndex="1">
+              <TabGroup :defaultIndex="0">
                 <TabList
                   as="div"
                   class="-mb-px flex space-x-8 border-b border-gray-200 px-2 bg-gray-50 sticky -top-8 shadow-sm rounded-t"
@@ -229,7 +229,7 @@
                       <nearby-waters-container :nearby-waters="data.nearby_waters" />
                     </div>
 
-                    <h1>HTML Ipsum Presents</h1>
+                    <!-- <h1>HTML Ipsum Presents</h1>
 
                     <p>
                       <strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.
@@ -256,7 +256,7 @@
                     <ul>
                       <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
                       <li>Aliquam tincidunt mauris eu risus.</li>
-                    </ul>
+                    </ul>-->
                   </TabPanel>
                   <TabPanel>
                     <div>
@@ -302,8 +302,14 @@ export default {
     TabPanels,
     TabPanel,
   },
-  setup() {
-    const { data, loading, error } = getFishableWatersById('f5719332-8135-481b-94dc-198956ed20d6')
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
+  setup(props) {
+    const { data, loading, error } = getFishableWatersById(props.id)
 
     const latLng = computed(() => {
       const [x, y] = data.value?.spatial_metadata?.centroid ?? [0, 0]

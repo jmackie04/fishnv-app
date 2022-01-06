@@ -1,7 +1,10 @@
 <template>
   <li>
     <!-- TODO: replace this div with router-link -->
-    <div class="flex items-center justify-between cursor-pointer">
+    <router-link
+      :to="{ name: 'waters', params: { id: waterId } }"
+      class="flex items-center justify-between cursor-pointer"
+    >
       <div class="flex-1 px-4 py-2 truncate">
         <h3 class="text-oxford-700">
           <slot name="title">Water Name</slot>
@@ -28,7 +31,7 @@
           </svg>
         </div>
       </div>
-    </div>
+    </router-link>
   </li>
 </template>
 
