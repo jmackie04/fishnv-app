@@ -3,14 +3,14 @@
   <ndow-error v-if="error" :error="error" />
 
   <template v-else>
-    <div class="min-h-full min-w-full mt-16">
-      <div class="flex flex-col lg:flex-row max-w-7xl mx-auto px-2 gap-4">
-        <header class="w-full lg:w-72 py-8 flex-shrink-0">
-          <div class>
+    <div class="min-h-full min-w-full pt-8 pb-16 overflow-y-scroll">
+      <div class="flex flex-col lg:flex-row max-w-7xl mx-auto px-4 gap-4">
+        <aside class="w-full lg:w-72 py-8 flex-shrink-0 relative">
+          <div class="sticky top-0">
             <div class="flex-1 min-w-0 flex flex-col space-y-6">
               <div class="flex justify-center">
                 <svg
-                  class="h-44 w-44 text-gray-600 border border-gray-400/50 rounded-full p-4"
+                  class="h-32 w-32 lg:h-44 lg:w-44 text-gray-600 border border-gray-400/50 rounded-full p-4"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 100 100"
                   fill="currentColor"
@@ -60,7 +60,7 @@
 
               <div>
                 <h1
-                  class="text-2xl font-bold leading-7 text-gray-600 sm:text-2xl sm:truncate"
+                  class="text-2xl font-bold leading-7 text-gray-700 sm:text-2xl sm:truncate"
                 >{{ data.water_name }}</h1>
                 <h3 class="mt-1 text-lg font-normal text-gray-500">{{ data.label }}</h3>
               </div>
@@ -83,7 +83,7 @@
                 </div>
               </div>
 
-              <div class="pt-2 border-t border-gray-300">
+              <div class="hidden lg:block pt-2 border-t border-gray-300">
                 <ul class="text-gray-500 text-sm">
                   <li class="flex items-center space-x-2 py-1">
                     <div>
@@ -188,9 +188,11 @@
               </div>
             </div>
           </div>
-        </header>
+        </aside>
 
-        <main class="rounded border flex-grow mt-8 bg-gray-50 rounded-t-lg shadow space-y-6">
+        <div
+          class="rounded border flex-grow mt-0 lg:mt-16 bg-gray-50 rounded-t-lg shadow space-y-6"
+        >
           <div
             class="lg:relative w-full h-96 lg:h-156 rounded-t-lg overflow-hidden border-b border-gray-300"
           >
@@ -200,7 +202,7 @@
           <div class="py-4 px-2">
             <nearby-waters-container :nearby-waters="data.nearby_waters.slice(0, 9)" />
           </div>
-        </main>
+        </div>
 
         <!-- <pre><code lang="json">{{ data }}</code></pre> -->
       </div>

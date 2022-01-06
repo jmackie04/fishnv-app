@@ -3,19 +3,17 @@
     <!-- TODO: replace this div with router-link -->
     <div class="flex items-center justify-between cursor-pointer">
       <div class="flex-1 px-4 py-2 truncate">
-        <h3 class="text-olive-700">
+        <h3 class="text-oxford-700">
           <slot name="title">Water Name</slot>
         </h3>
-        <p class="text-gray-600 font-light">
+        <p class="text-gray-600 text-sm font-light">
           <slot name="subtitle">Subtitle</slot>
         </p>
       </div>
       <div class="flex-shrink-0 pr-2">
-        <button
-          class="w-8 h-8 bg-white inline-flex items-center justify-center text-gray-400 rounded-full bg-transparent hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        <div
+          class="w-8 h-8 bg-white inline-flex items-center justify-center text-gray-400 rounded-full bg-transparent"
         >
-          <span class="sr-only">Open options</span>
-          <!-- Heroicon name: solid/link -->
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-5 w-5"
@@ -28,7 +26,7 @@
               clip-rule="evenodd"
             />
           </svg>
-        </button>
+        </div>
       </div>
     </div>
   </li>
