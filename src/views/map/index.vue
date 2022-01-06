@@ -4,13 +4,13 @@
 
     <!-- content area -->
     <div class="flex-1 flex overflow-hidden">
-      <!-- map section -->
+      <!-- map section toggle relative to play with child component placement -->
       <section
         v-if="display === 'both' || display === 'map'"
         id="map"
-        class="relative block min-w-0 flex-1 lg:order-last bg-blue-300"
+        class="block min-w-0 flex-1 lg:order-last bg-blue-300"
       >
-        <maplibre-map ref="maplibre" @update:moveend="syncUrl" />
+        <maplibre-map ref="maplibre" :portal-slider="true" @update:moveend="syncUrl" />
       </section>
 
       <!-- side bar -->

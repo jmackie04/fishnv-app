@@ -5,14 +5,16 @@
     @click:recenter="recenter"
     @click:layers="toggleSlider"
   />
-  <map-layers-panel
+  <!-- <map-layers-panel
     :open="sliderOpen"
     :basemaps="basemaps"
     :layers="layers"
     @panel:close="toggleSlider"
     @layers:switch-basemap="setBasemap"
     @layers:toggle-layer="toggleLayer"
-  />
+  />-->
+
+  <slider-right :open="sliderOpen" :portal="portalSlider" @close="toggleSlider" />
 </template>
 
 <script>
@@ -25,6 +27,7 @@ import { basemaps as styles, layers as overlays } from '../lib/maplibre-layers.j
 
 import MapMenuButton from '../views/map/map-menu-button.vue'
 import MapLayersPanel from '../views/map/map-layers-panel.vue'
+import SliderRight from './ndow-slider-right-wo-portal.vue'
 
 const mapInit = {
   center: [-116.6554, 38.55],
@@ -33,7 +36,13 @@ const mapInit = {
 
 export default {
   name: 'maplibre-map',
-  components: { MapMenuButton, MapLayersPanel },
+  components: { MapMenuButton, MapLayersPanel, SliderRight },
+  props: {
+    portalSlider: {
+      type: Boolean,
+      defualt: false
+    }
+  },
   emits: ['update:moveend', 'toggle:maplayers'],
   setup(props, { emit }) {
     const route = useRoute()
