@@ -42,7 +42,7 @@ export default {
       defualt: false
     }
   },
-  emits: ['update:moveend', 'toggle:maplayers'],
+  emits: ['update:moveend', 'toggle:maplayers', 'map:ready'],
   setup(props, { emit }) {
     const route = useRoute()
     const root = ref(null)
@@ -67,6 +67,8 @@ export default {
       blueprint.ready = true
 
       nextTick(() => {
+        emit('map:ready')
+
         map.value.on('moveend', () => {
           const center = map.value.getCenter()
           const zoom = map.value.getZoom()

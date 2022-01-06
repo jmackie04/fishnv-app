@@ -196,16 +196,16 @@
           <div
             class="lg:relative w-full h-96 lg:h-156 rounded overflow-hidden border-b border-gray-300"
           >
-            <maplibre-map />
+            <maplibre-map ref="maplibre" @map:ready="centerMap" />
           </div>
 
           <!-- tabs etc. -->
           <div class="bg-gray-50 rounded">
-            <div class>
+            <div>
               <TabGroup :defaultIndex="0">
                 <TabList
                   as="div"
-                  class="-mb-px flex space-x-8 border-b border-gray-200 px-2 bg-gray-50 sticky -top-8 shadow-sm"
+                  class="-mb-px flex space-x-8 border-b border-gray-200 px-2 bg-gray-50 sticky -top-8 shadow-sm rounded-t"
                 >
                   <Tab as="template" v-slot="{ selected }">
                     <div
@@ -271,7 +271,7 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, ref, nextTick } from 'vue'
 
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import NdowError from '../../components/ndow-error.vue'
@@ -318,7 +318,19 @@ export default {
       return `${d.toFixed(2)} ${conversion[type].unit}`
     })
 
-    return { data, loading, error, latLng, dims }
+    // map interactions and methods
+    const maplibre = ref(null)
+    const centerMap = () => {
+      nextTick(() => {
+        const bounds = Object.values(data.value.spatial_metadata.bbox)
+        console.log({ bounds })
+        maplibre.value.map.fitBounds(bounds, {
+          padding: 50
+        })
+      })
+    }
+
+    return { data, loading, error, latLng, dims, maplibre, centerMap }
   },
 };
 </script>
