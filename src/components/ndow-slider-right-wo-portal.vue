@@ -18,9 +18,11 @@
         <div class="h-full flex flex-col py-6 bg-gray-100 shadow-xl overflow-y-scroll">
           <div class="px-4">
             <div class="flex items-start justify-between">
-              <slot name="title">
-                <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">Panel title</h2>
-              </slot>
+              <div class="pr-4">
+                <slot name="title">
+                  <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">Panel title</h2>
+                </slot>
+              </div>
               <div class="ml-3 h-7 flex items-center">
                 <button
                   type="button"

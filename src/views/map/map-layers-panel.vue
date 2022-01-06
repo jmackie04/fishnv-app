@@ -1,5 +1,5 @@
 <template>
-  <ndow-slider-right :open="open" @close="close">
+  <ndow-slider-right :portal="portalSlider" :open="open" @close="close">
     <template #title>
       <h2>Layers and Basemaps</h2>
       <p class="text-sm font-light mt-1">
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import NdowSliderRight from '../../components/ndow-slider-right.vue'
+import NdowSliderRight from '../../components/ndow-slider-right-wo-portal.vue'
 import MapLayersCard from './map-layers-card.vue'
 
 export default {
@@ -51,6 +51,10 @@ export default {
     open: {
       type: Boolean,
       required: true
+    },
+    portalSlider: {
+      type: Boolean,
+      default: false
     },
     basemaps: {
       type: Array,
