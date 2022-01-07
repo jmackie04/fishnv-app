@@ -23,11 +23,11 @@
                 >Weight</th>
                 <th
                   scope="col"
-                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  class="hidden lg:table-cell px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                 >Angler Name</th>
                 <th
                   scope="col"
-                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  class="hidden lg:table-cell px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                 >Angler State</th>
                 <th
                   scope="col"
@@ -43,9 +43,11 @@
                 <td
                   class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
                 >{{ fish.pounds }}lbs. {{ fish.ounces }}oz.</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ fish.angler_name }}</td>
                 <td
-                  class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                  class="hidden lg:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                >{{ fish.angler_name }}</td>
+                <td
+                  class="hidden lg:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500"
                 >{{ fish.angler_state }}</td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ fish.year_caught }}</td>
               </tr>

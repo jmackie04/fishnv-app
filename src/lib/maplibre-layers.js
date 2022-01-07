@@ -99,6 +99,26 @@ export const fishableWaters = {
       },
       filter: ['all', ['==', '$type', 'Polygon'], ['==', 'id', 0]]
     }
+    // {
+    //   id: 'labels-fw-lines',
+    //   type: 'symbol',
+    //   source: 'fishable-waters',
+    //   'source-layer': 'fishable_waters',
+    //   layout: {
+    //     visibility: 'visible',
+    //     'symbol-placement': 'line',
+    //     'text-font': ['Open Sans Regular'],
+    //     'text-field': ['get', 'water_name'],
+    //     'text-anchor': 'top',
+    //     'text-size': 16
+    //   },
+    //   paint: {
+    //     'text-color': '#589fd6',
+    //     'text-halo-color': 'white',
+    //     'text-halo-width': 1,
+    //     'text-halo-blur': 1
+    //   }
+    // }
   ]
 }
 
