@@ -19,7 +19,7 @@
 
 <script>
 import { onMounted, reactive, computed, ref, nextTick } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 import { geolocate as geolocation } from '../lib/geolocation.js'
 import { renderMaplibre } from '../lib/maplibre.js'
@@ -45,6 +45,7 @@ export default {
   emits: ['update:moveend', 'toggle:maplayers', 'map:ready'],
   setup(props, { emit }) {
     const route = useRoute()
+    const router = useRouter()
     const root = ref(null)
     const blueprint = reactive({
       ready: false,
@@ -77,8 +78,17 @@ export default {
         })
 
         map.value.on('click', (e) => {
-          const features = map.value.queryRenderedFeatures(e.point)
-          console.log({ features })
+          const features = map.value.queryRenderedFeatures(e.point, {
+            layers: ['fw-lines', 'fw-polygons']
+          })
+
+          if (features.length) {
+            const waterId = features[0].properties.id
+            router.push({
+              name: 'waters',
+              params: { id: waterId }
+            })
+          }
         })
       })
     })
