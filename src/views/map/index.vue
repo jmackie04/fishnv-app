@@ -10,7 +10,12 @@
         id="map"
         class="block min-w-0 flex-1 lg:order-last bg-blue-300"
       >
-        <maplibre-map ref="maplibre" :portal-slider="true" @update:moveend="syncUrl" />
+        <maplibre-map
+          ref="maplibre"
+          :portal-slider="true"
+          @update:moveend="syncUrl"
+          @map:ready="initMap"
+        />
       </section>
 
       <!-- side bar -->
@@ -20,7 +25,7 @@
       >
         <div v-if="!isLoading">
           <div class="p-2 text-2xl text-oxford-600">{{ totalFishableWaters }} Fishable Waters</div>
-          <fw-list-container :fishable-waters="filteredFishableWaters" />
+          <fw-list-container :fishable-waters="filteredFishableWaters" @card:hover="highlightGeom" />
         </div>
         <ndow-loading v-else />
       </aside>
@@ -83,6 +88,17 @@ export default {
     const router = useRouter()
     const syncUrl = ({ bounds, ...layout }) => { router.replace({ query: { ...route.query, ...layout } }) }
 
+    const highlightGeom = ({ id, hover }) => {
+      const polygonFilter = ['==', '$type', 'Polygon']
+      if (hover) {
+        const lines = ['==', 'id', id]
+        const poly = ['all', polygonFilter, lines]
+        console.debug({ lines, poly })
+        maplibre.value.map.setFilter('hovered-fw-lines', lines)
+        maplibre.value.map.setFilter('hovered-fw-polygons', poly)
+      }
+    }
+
     // map methods
     const maplibre = ref(null)
     watch(fwIds, async (curr) => {
@@ -97,7 +113,16 @@ export default {
         })
       })
     },
-      { deep: true })
+      { deep: true }
+    )
+
+    const initMap = () => {
+      maplibre.value.map.on('load', () => {
+        maplibre.value.map.fitBounds([[-114.03965394617312, 42.0021960036951], [-120.00574882950774, 35.00208042610391]], {
+          padding: 20
+        })
+      })
+    }
 
     return {
       fishableWaters,
@@ -119,7 +144,9 @@ export default {
 
       // map interactions
       syncUrl,
-      maplibre
+      maplibre,
+      highlightGeom,
+      initMap
     }
   }
 }

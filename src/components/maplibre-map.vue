@@ -111,7 +111,6 @@ export default {
     }
     const toggleLayer = (payload) => {
       blueprint.layers.forEach(def => {
-        console.log({ def: JSON.parse(JSON.stringify(def)) })
         if (def.name === payload.name) {
           def.active = !def.active
           const layerIds = def.layers.map(layer => layer.id)

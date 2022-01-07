@@ -347,7 +347,6 @@ export default {
     const centerMap = () => {
       nextTick(() => {
         const bounds = Object.values(data.value.spatial_metadata.bbox)
-        console.log({ bounds })
         maplibre.value.map.fitBounds(bounds, {
           padding: 50
         })
@@ -376,7 +375,17 @@ export default {
     }
     const isHeart = computed(() => favoriteWaters.value.includes(props.id))
 
-    onMounted(() => { getFavoriteWaters() })
+    onMounted(() => {
+      getFavoriteWaters()
+
+      maplibre.value.map.on('style.load', () => {
+        const polygonFilter = ['==', '$type', 'Polygon']
+        const lines = ['==', 'id', props.id]
+        const poly = ['all', polygonFilter, lines]
+        maplibre.value.map.setFilter('hovered-fw-lines', lines)
+        maplibre.value.map.setFilter('hovered-fw-polygons', poly)
+      })
+    })
 
     return { data, loading, error, latLng, dims, maplibre, centerMap, favoriteWaters, heartWater, isHeart }
   },

@@ -69,6 +69,35 @@ export const fishableWaters = {
         'fill-color': '#589fd6'
       },
       filter: ['==', '$type', 'Polygon']
+    },
+    {
+      id: 'hovered-fw-lines',
+      type: 'line',
+      source: 'fishable-waters',
+      'source-layer': 'fishable_waters',
+      layout: {
+        visibility: 'visible',
+        'line-cap': 'round',
+        'line-join': 'round'
+      },
+      paint: {
+        'line-color': '#f29647',
+        'line-width': 4
+      },
+      filter: ['==', 'id', 0]
+    },
+    {
+      id: 'hovered-fw-polygons',
+      type: 'fill',
+      source: 'fishable-waters',
+      'source-layer': 'fishable_waters',
+      layout: {
+        visibility: 'visible',
+      },
+      paint: {
+        'fill-color': '#f29647'
+      },
+      filter: ['all', ['==', '$type', 'Polygon'], ['==', 'id', 0]]
     }
   ]
 }

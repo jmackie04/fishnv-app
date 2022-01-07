@@ -9,6 +9,8 @@
         index === fishableWaters.length - 1 ? 'rounded-bl-md rounded-br-md' : '',
         'bg-white overflow-hidden flex flex-col p-2 group cursor-pointer'
       ]"
+      @mouseover="mouseover(water.id)"
+      @mouseleave="mouseleave"
     >
       <h2
         class="text-lg text-oxford-600 tracking-wide font-medium leading-loose group-hover:text-saffron-600"
@@ -26,11 +28,18 @@
 <script>
 export default {
   name: 'fw-list-container',
+  emits: ['card:hover'],
   props: {
     fishableWaters: {
       type: Array,
       required: true
     }
+  },
+  setup(_, { emit }) {
+    const mouseover = (id) => { emit('card:hover', { id, hover: true }) }
+    const mouseleave = () => { emit('card:hover', { hover: false }) }
+
+    return { mouseover, mouseleave }
   }
 }
 </script>
