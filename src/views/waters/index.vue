@@ -9,53 +9,60 @@
           <div class="sticky top-0">
             <div class="flex-1 min-w-0 flex flex-col space-y-6">
               <div class="flex justify-center">
-                <svg
-                  class="h-32 w-32 lg:h-44 lg:w-44 text-gray-600 border border-gray-400/50 rounded-full p-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 100 100"
-                  fill="currentColor"
-                >
-                  <path
-                    class="cls-1"
-                    d="M24.42,46.28s14.06,3.66,13.7,6.94-21.91,7.89-27.57,14S21.69,83.89,46,85.9"
+                <div class="relative">
+                  <svg
+                    class="h-32 w-32 lg:h-44 lg:w-44 text-gray-600 border border-gray-400/50 rounded-full p-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 100 100"
+                    fill="currentColor"
+                  >
+                    <path
+                      class="cls-1"
+                      d="M24.42,46.28s14.06,3.66,13.7,6.94-21.91,7.89-27.57,14S21.69,83.89,46,85.9"
+                    />
+                    <path
+                      class="cls-1"
+                      d="M33.92,41.54s22.21,2.75,36,7.55C81.75,53.22,46.65,68.19,96,71.3"
+                    />
+                    <path
+                      class="cls-1"
+                      d="M22.56,70.92c3.42,0,3.42,2,6.84,2s3.42-2,6.85-2,3.42,2,6.85,2"
+                    />
+                    <path
+                      class="cls-1"
+                      d="M41.31,65.09c3.42,0,3.42,2,6.84,2s3.43-2,6.85-2,3.42,2,6.85,2"
+                    />
+                    <path
+                      class="cls-1"
+                      d="M48,78.36c2.56,0,2.56,2,5.13,2s2.56-2,5.13-2,2.57,2,5.14,2,2.56-2,5.13-2"
+                    />
+                    <path
+                      class="cls-1"
+                      d="M50.39,54.57c2.24,0,2.24,2,4.49,2s2.25-2,4.49-2,2.25,2,4.5,2"
+                    />
+                    <path
+                      class="cls-1"
+                      d="M40.27,48.6c2.24,0,2.24,2,4.49,2s2.25-2,4.49-2,2.25,2,4.5,2"
+                    />
+                    <path class="cls-1" d="M58.27,43s4.78-.06,4.78-6V26.62" />
+                    <path class="cls-1" d="M72.44,43s-4.77-.06-4.77-6V26.62" />
+                    <path
+                      class="cls-1"
+                      d="M60.13,34.23s-3-.43-3.17-2.81a3.53,3.53,0,0,1,1.35-3.37,5.53,5.53,0,0,1-2-5.46c.69-3.56,4.4-4.1,4.4-4.1s-.79-3,1.84-4.06c2.84-1.15,5.32,1.05,5.32,1.05a3.46,3.46,0,0,1,4.41.74c1.89,1.93.27,4.8.27,4.8a4.37,4.37,0,0,1,2.23,3.59,3.14,3.14,0,0,1-2,3.4s1.57,5.36-2.88,5.3"
+                    />
+                    <path class="cls-1" d="M6.5,56.9s5.62-.08,5.62-7V37.62" />
+                    <path class="cls-1" d="M23.2,56.9s-5.63-.08-5.63-7V37.62" />
+                    <path
+                      class="cls-1"
+                      d="M8.68,46.58S5.21,46.08,5,43.27a4.14,4.14,0,0,1,1.58-4,6.51,6.51,0,0,1-2.37-6.44C5,28.66,9.34,28,9.34,28s-.92-3.52,2.18-4.78c3.35-1.36,6.27,1.24,6.27,1.24a4.06,4.06,0,0,1,5.2.86c2.23,2.29.31,5.67.31,5.67a5.15,5.15,0,0,1,2.64,4.23,3.72,3.72,0,0,1-2.38,4s1.86,6.32-3.39,6.25"
+                    />
+                  </svg>
+                  <btn-heart
+                    class="absolute bottom-0 right-0 lg:bottom-2 lg:right-2 shadow"
+                    :liked="isHeart"
+                    @click="heartWater"
                   />
-                  <path
-                    class="cls-1"
-                    d="M33.92,41.54s22.21,2.75,36,7.55C81.75,53.22,46.65,68.19,96,71.3"
-                  />
-                  <path
-                    class="cls-1"
-                    d="M22.56,70.92c3.42,0,3.42,2,6.84,2s3.42-2,6.85-2,3.42,2,6.85,2"
-                  />
-                  <path
-                    class="cls-1"
-                    d="M41.31,65.09c3.42,0,3.42,2,6.84,2s3.43-2,6.85-2,3.42,2,6.85,2"
-                  />
-                  <path
-                    class="cls-1"
-                    d="M48,78.36c2.56,0,2.56,2,5.13,2s2.56-2,5.13-2,2.57,2,5.14,2,2.56-2,5.13-2"
-                  />
-                  <path
-                    class="cls-1"
-                    d="M50.39,54.57c2.24,0,2.24,2,4.49,2s2.25-2,4.49-2,2.25,2,4.5,2"
-                  />
-                  <path
-                    class="cls-1"
-                    d="M40.27,48.6c2.24,0,2.24,2,4.49,2s2.25-2,4.49-2,2.25,2,4.5,2"
-                  />
-                  <path class="cls-1" d="M58.27,43s4.78-.06,4.78-6V26.62" />
-                  <path class="cls-1" d="M72.44,43s-4.77-.06-4.77-6V26.62" />
-                  <path
-                    class="cls-1"
-                    d="M60.13,34.23s-3-.43-3.17-2.81a3.53,3.53,0,0,1,1.35-3.37,5.53,5.53,0,0,1-2-5.46c.69-3.56,4.4-4.1,4.4-4.1s-.79-3,1.84-4.06c2.84-1.15,5.32,1.05,5.32,1.05a3.46,3.46,0,0,1,4.41.74c1.89,1.93.27,4.8.27,4.8a4.37,4.37,0,0,1,2.23,3.59,3.14,3.14,0,0,1-2,3.4s1.57,5.36-2.88,5.3"
-                  />
-                  <path class="cls-1" d="M6.5,56.9s5.62-.08,5.62-7V37.62" />
-                  <path class="cls-1" d="M23.2,56.9s-5.63-.08-5.63-7V37.62" />
-                  <path
-                    class="cls-1"
-                    d="M8.68,46.58S5.21,46.08,5,43.27a4.14,4.14,0,0,1,1.58-4,6.51,6.51,0,0,1-2.37-6.44C5,28.66,9.34,28,9.34,28s-.92-3.52,2.18-4.78c3.35-1.36,6.27,1.24,6.27,1.24a4.06,4.06,0,0,1,5.2.86c2.23,2.29.31,5.67.31,5.67a5.15,5.15,0,0,1,2.64,4.23,3.72,3.72,0,0,1-2.38,4s1.86,6.32-3.39,6.25"
-                  />
-                </svg>
+                </div>
               </div>
 
               <div>
@@ -65,13 +72,13 @@
                 <h3 class="mt-1 text-lg font-normal text-gray-500">{{ data.label }}</h3>
               </div>
 
-              <div>
+              <!-- <div>
                 <button
                   type="button"
                   :class="[isHeart ? 'bg-red-50 border border-red-500 text-red-500' : 'text-gray-600 bg-transparent border border-gray-600 hover:border-red-500 hover:text-red-600', 'w-full py-1 rounded']"
                   @click="heartWater"
                 >{{ isHeart ? 'Saved' : 'Favorite?' }}</button>
-              </div>
+              </div>-->
 
               <div class="pt-2 border-t border-gray-300">
                 <h3 class="text-gray-600 font-semibold">Species</h3>
@@ -284,6 +291,7 @@ import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import NdowError from '../../components/ndow-error.vue'
 import NdowLoading from '../../components/ndow-loading.vue'
 import MaplibreMap from '../../components/maplibre-map.vue'
+import BtnHeart from '../../components/btn-heart.vue'
 import NearbyWatersContainer from './nearby-waters-container.vue'
 import FishEntriesTable from './fish-entries-table.vue'
 
@@ -302,6 +310,7 @@ export default {
     Tab,
     TabPanels,
     TabPanel,
+    BtnHeart
   },
   props: {
     id: {
