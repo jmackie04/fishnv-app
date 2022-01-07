@@ -68,8 +68,9 @@
               <div>
                 <button
                   type="button"
-                  class="w-full py-1 rounded bg-gray-50 border border-transparent hover:border-red-500"
-                >Favorite</button>
+                  :class="[isHeart ? 'bg-red-50 border border-red-500 text-red-500' : 'text-gray-600 bg-transparent border border-gray-600 hover:border-red-500 hover:text-red-600', 'w-full py-1 rounded']"
+                  @click="heartWater"
+                >{{ isHeart ? 'Saved' : 'Favorite?' }}</button>
               </div>
 
               <div class="pt-2 border-t border-gray-300">
@@ -277,7 +278,7 @@
 </template>
 
 <script>
-import { computed, ref, nextTick } from 'vue'
+import { computed, ref, nextTick, onMounted } from 'vue'
 
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import NdowError from '../../components/ndow-error.vue'
@@ -344,7 +345,31 @@ export default {
       })
     }
 
-    return { data, loading, error, latLng, dims, maplibre, centerMap }
+    // favorite waters & actions
+    const favoriteWaters = ref([])
+    const getFavoriteWaters = () => {
+      const data = localStorage.getItem('favoriteWaters')
+      favoriteWaters.value = JSON.parse(data) ?? []
+      console.log({ data })
+    }
+    const heartWater = () => {
+      const waterId = props.id
+      console.debug('hearting water')
+      if (isHeart.value) {
+        const favs = favoriteWaters.value.filter(w => w !== waterId)
+        localStorage.setItem('favoriteWaters', JSON.stringify(favs))
+      } else {
+        const favs = [waterId, ...favoriteWaters.value]
+        localStorage.setItem('favoriteWaters', JSON.stringify(favs))
+      }
+
+      getFavoriteWaters()
+    }
+    const isHeart = computed(() => favoriteWaters.value.includes(props.id))
+
+    onMounted(() => { getFavoriteWaters() })
+
+    return { data, loading, error, latLng, dims, maplibre, centerMap, favoriteWaters, heartWater, isHeart }
   },
 };
 </script>
