@@ -19,5 +19,21 @@ export const renderMaplibre = (options, layers) => {
       })
   })
 
+  // cursor pointer on fishable waters
+  map.on('mousemove', 'fw-lines', () => {
+    map.getCanvas().style.cursor = 'pointer'
+  })
+  map.on('mousemove', 'fw-polygons', () => {
+    map.getCanvas().style.cursor = 'pointer'
+  })
+
+  // reset cursor on fishable waters
+  map.on('mouseleave', 'fw-lines', () => {
+    map.getCanvas().style.cursor = ''
+  })
+  map.on('mouseleave', 'fw-polygons', () => {
+    map.getCanvas().style.cursor = ''
+  })
+
   return map
 }
