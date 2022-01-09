@@ -10,12 +10,7 @@
         id="map"
         class="block min-w-0 flex-1 lg:order-last bg-blue-300"
       >
-        <maplibre-map
-          ref="maplibre"
-          :portal-slider="true"
-          @update:moveend="syncUrl"
-          @map:ready="initMap"
-        />
+        <maplibre-map ref="maplibre" :portal-slider="true" @update:moveend="syncUrl" />
       </section>
 
       <!-- side bar -->
@@ -93,7 +88,6 @@ export default {
       if (hover) {
         const lines = ['==', 'id', id]
         const poly = ['all', polygonFilter, lines]
-        console.debug({ lines, poly })
         maplibre.value.map.setFilter('hovered-fw-lines', lines)
         maplibre.value.map.setFilter('hovered-fw-polygons', poly)
       }
@@ -116,14 +110,6 @@ export default {
       { deep: true }
     )
 
-    const initMap = () => {
-      maplibre.value.map.on('load', () => {
-        maplibre.value.map.fitBounds([[-114.03965394617312, 42.0021960036951], [-120.00574882950774, 35.00208042610391]], {
-          padding: 20
-        })
-      })
-    }
-
     return {
       fishableWaters,
       isLoading,
@@ -145,8 +131,7 @@ export default {
       // map interactions
       syncUrl,
       maplibre,
-      highlightGeom,
-      initMap
+      highlightGeom
     }
   }
 }
