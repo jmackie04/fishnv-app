@@ -26,10 +26,12 @@ const filterFishableWaters = (fishableWaters, filters) => {
     return Object.keys(filters).every(key => {
       if (!filters[key].toString().length) return true
       if (key === 'species') return contains(waters[key], filters[key])
+      if (key === 'water_type') return filters[key] === waters[key]
       if (key === 'searchTerm') {
         return waters.water_name.toLowerCase().indexOf(filters[key].toLowerCase()) > -1
       }
-      return filters[key] === waters[key]
+      if (key === 'region') return waters.regions.toLowerCase().indexOf(filters.region.toLowerCase()) > -1
+      if (key === 'county') return waters.counties.toLowerCase().indexOf(filters.county.toLowerCase()) > -1
     })
   })
 }
