@@ -16,7 +16,7 @@
         class="text-lg text-oxford-600 tracking-wide font-medium leading-loose group-hover:text-saffron-600"
       >
         {{ water.water_name }}
-        <span class="text-gray-600 text-sm font-light ml-1">{{ water.label }}</span>
+        <span class="text-gray-600 text-sm font-light">{{ water.id }}</span>
       </h2>
       <div>
         <p class="text-gray-600 text-sm font-light capitalize">{{ water.species.join(', ') }}</p>
