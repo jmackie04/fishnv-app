@@ -86,7 +86,7 @@ export default {
     const highlightGeom = ({ id, hover }) => {
       const polygonFilter = ['==', '$type', 'Polygon']
       if (hover) {
-        const lines = ['==', 'id', id]
+        const lines = ['==', '$id', id]
         const poly = ['all', polygonFilter, lines]
         maplibre.value.map.setFilter('hovered-fw-lines', lines)
         maplibre.value.map.setFilter('hovered-fw-polygons', poly)

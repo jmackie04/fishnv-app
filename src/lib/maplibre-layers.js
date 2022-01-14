@@ -84,7 +84,7 @@ export const fishableWaters = {
         'line-color': '#f29647',
         'line-width': 4
       },
-      filter: ['==', 'id', 0]
+      filter: ['==', '$id', 0]
     },
     {
       id: 'hovered-fw-polygons',
@@ -97,7 +97,7 @@ export const fishableWaters = {
       paint: {
         'fill-color': '#f29647'
       },
-      filter: ['all', ['==', '$type', 'Polygon'], ['==', 'id', 0]]
+      filter: ['all', ['==', '$type', 'Polygon'], ['==', '$id', 0]]
     }
     // {
     //   id: 'labels-fw-lines',

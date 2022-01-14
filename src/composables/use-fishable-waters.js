@@ -68,7 +68,7 @@ export default () => {
 
   const fwIds = computed(() => {
     if (filteredFishableWaters.value) {
-      return ['in', 'id', ...filteredFishableWaters.value.map(fw => fw.id)]
+      return ['in', '$id', ...filteredFishableWaters.value.map(fw => fw.id)]
     } else {
       return undefined
     }

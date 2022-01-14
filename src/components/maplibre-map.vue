@@ -81,9 +81,10 @@ export default {
           const features = map.value.queryRenderedFeatures(e.point, {
             layers: ['fw-lines', 'fw-polygons']
           })
+          console.log({ features })
 
           if (features.length) {
-            const waterId = features[0].properties.id
+            const waterId = features[0].id
             router.push({
               name: 'waters',
               params: { id: waterId }
