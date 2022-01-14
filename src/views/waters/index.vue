@@ -60,6 +60,7 @@
                       />
                     </svg>
                     <btn-heart
+                      v-if="featuresHeart"
                       class="absolute bottom-0 right-0 lg:bottom-2 lg:right-2 shadow"
                       :liked="isHeart"
                       @click="heartWater"
@@ -73,14 +74,6 @@
                   >{{ data.water_name }}</h1>
                   <h3 class="mt-1 text-lg font-normal text-gray-500">{{ data.label }}</h3>
                 </div>
-
-                <!-- <div>
-                <button
-                  type="button"
-                  :class="[isHeart ? 'bg-red-50 border border-red-500 text-red-500' : 'text-gray-600 bg-transparent border border-gray-600 hover:border-red-500 hover:text-red-600', 'w-full py-1 rounded']"
-                  @click="heartWater"
-                >{{ isHeart ? 'Saved' : 'Favorite?' }}</button>
-                </div>-->
 
                 <div class="pt-2 border-t border-gray-300">
                   <h3 class="text-gray-600 font-semibold">Species</h3>
@@ -332,11 +325,9 @@ export default {
     const getFavoriteWaters = () => {
       const data = localStorage.getItem('favoriteWaters')
       favoriteWaters.value = JSON.parse(data) ?? []
-      console.log({ data })
     }
     const heartWater = () => {
-      const waterId = props.id
-      console.debug('hearting water')
+      const waterId = parseInt(props.id)
       if (isHeart.value) {
         const favs = favoriteWaters.value.filter(w => w !== waterId)
         localStorage.setItem('favoriteWaters', JSON.stringify(favs))
@@ -347,7 +338,7 @@ export default {
 
       getFavoriteWaters()
     }
-    const isHeart = computed(() => favoriteWaters.value.includes(props.id))
+    const isHeart = computed(() => favoriteWaters.value.includes(parseInt(props.id)))
 
     onMounted(() => {
       getFavoriteWaters()
@@ -361,7 +352,8 @@ export default {
       })
     })
 
-    return { data, loading, error, latLng, dims, maplibre, centerMap, favoriteWaters, heartWater, isHeart }
+    const featuresHeart = ref(false)
+    return { data, loading, error, latLng, dims, maplibre, centerMap, favoriteWaters, heartWater, isHeart, featuresHeart }
   },
 };
 </script>
