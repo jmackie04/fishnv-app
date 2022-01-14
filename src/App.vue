@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { GlobeIcon, HomeIcon } from '@heroicons/vue/outline'
+import { GlobeIcon } from '@heroicons/vue/outline'
 import ndowSidebarNav from '@/components/ndow-sidebar-nav.vue'
 import ndowMobileMenu from '@/components/ndow-mobile-menu.vue'
 import useMobileMenu from '@/composables/use-mobile-menu.js'
@@ -34,7 +34,6 @@ const user = {
 }
 
 const navigation = [
-  { name: 'Home', href: '/', icon: HomeIcon },
   { name: 'Map', href: '/map', icon: GlobeIcon }
 ]
 

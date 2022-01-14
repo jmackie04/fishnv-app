@@ -1,12 +1,38 @@
 <template>
   <TransitionRoot as="template" :show="mobileMenuOpen">
     <Dialog as="div" static class="fixed inset-0 flex z-40 lg:hidden" :open="mobileMenuOpen">
-      <TransitionChild as="template" enter="transition-opacity ease-linear duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="transition-opacity ease-linear duration-300" leave-from="opacity-100" leave-to="opacity-0">
+      <TransitionChild
+        as="template"
+        enter="transition-opacity ease-linear duration-300"
+        enter-from="opacity-0"
+        enter-to="opacity-100"
+        leave="transition-opacity ease-linear duration-300"
+        leave-from="opacity-100"
+        leave-to="opacity-0"
+      >
         <DialogOverlay class="fixed inset-0 bg-gray-600 bg-opacity-75" />
       </TransitionChild>
-      <TransitionChild as="template" enter="transition ease-in-out duration-300 transform" enter-from="-translate-x-full" enter-to="translate-x-0" leave="transition ease-in-out duration-300 transform" leave-from="translate-x-0" leave-to="-translate-x-full">
-        <div class="relative flex-1 flex flex-col justify-between max-w-xs w-full bg-gray-100 focus:outline-none">
-          <TransitionChild as="template" enter="ease-in-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in-out duration-300" leave-from="opacity-100" leave-to="opacity-0">
+      <TransitionChild
+        as="template"
+        enter="transition ease-in-out duration-300 transform"
+        enter-from="-translate-x-full"
+        enter-to="translate-x-0"
+        leave="transition ease-in-out duration-300 transform"
+        leave-from="translate-x-0"
+        leave-to="-translate-x-full"
+      >
+        <div
+          class="relative flex-1 flex flex-col justify-between max-w-xs w-full bg-gray-100 focus:outline-none"
+        >
+          <TransitionChild
+            as="template"
+            enter="ease-in-out duration-300"
+            enter-from="opacity-0"
+            enter-to="opacity-100"
+            leave="ease-in-out duration-300"
+            leave-from="opacity-100"
+            leave-to="opacity-0"
+          >
             <div class="absolute top-0 right-0 -mr-12 pt-4">
               <button
                 type="button"
@@ -20,7 +46,11 @@
           </TransitionChild>
           <div class="pt-5 pb-4">
             <div class="flex-shrink-0 flex items-end px-4">
-              <img class="h-20 w-auto" src="../assets/images/huntnv-logo_200x160.png" alt="Workflow" />
+              <img
+                class="h-20 w-auto"
+                src="../assets/images/fishnv-logo_200x160.png"
+                alt="Workflow"
+              />
               <h1 class="text-saffron-600 text-xl font-semibold tracking-wider -ml-2">FishNV</h1>
             </div>
             <nav aria-label="Sidebar" class="mt-5">
@@ -30,24 +60,38 @@
                   :key="item.name"
                   :to="item.href"
                   class="group p-2 rounded-md flex items-center text-base font-medium text-gray-600 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-saffron-600"
-                  :class="[ item.href === '#' ? 'cursor-not-allowed' : '' ]"
+                  :class="[item.href === '#' ? 'cursor-not-allowed' : '']"
                 >
-                  <component :is="item.icon" class="mr-4 h-6 w-6 text-gray-400 group-hover:text-saffron-600" aria-hidden="true" />
+                  <component
+                    :is="item.icon"
+                    class="mr-4 h-6 w-6 text-gray-400 group-hover:text-saffron-600"
+                    aria-hidden="true"
+                  />
                   {{ item.name }}
                 </router-link>
               </div>
             </nav>
           </div>
           <div class="flex-shrink-0 flex items-center justify-center border-t border-gray-200 p-4">
-            <a href="http://www.ndow.org" class="flex-shrink-0 group block focus:outline-none rounded-md focus:ring-2 focus:ring-saffron-600" alt="to ndow.org website" target="_blank" rel="noreferrer noopener">
+            <a
+              href="http://www.ndow.org"
+              class="flex-shrink-0 group block focus:outline-none rounded-md focus:ring-2 focus:ring-saffron-600"
+              alt="to ndow.org website"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
               <div class="flex items-center">
                 <div>
-                  <img class="inline-block h-20 w-20" src="https://ndow-cdn.s3.us-west-2.amazonaws.com/ndow-logo.png" alt="NDOW logo" />
+                  <img
+                    class="inline-block h-20 w-20"
+                    src="https://ndow-cdn.s3.us-west-2.amazonaws.com/ndow-logo.png"
+                    alt="NDOW logo"
+                  />
                 </div>
                 <div class="ml-3">
-                  <p class="text-base font-medium text-gray-700 group-hover:text-gray-900 sr-only">
-                    NDOW.org
-                  </p>
+                  <p
+                    class="text-base font-medium text-gray-700 group-hover:text-gray-900 sr-only"
+                  >NDOW.org</p>
                 </div>
               </div>
             </a>
@@ -80,7 +124,7 @@ export default {
     mobileMenuOpen: Boolean
   },
   methods: {
-    toggleMenu () {
+    toggleMenu() {
       this.$emit('toggle-menu')
     }
   }
