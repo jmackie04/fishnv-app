@@ -220,10 +220,10 @@
                         :class="[selected ? 'border-olive-500 text-olive-500 font-medium' : 'border-transparent hover:text-gray-700 hover:border-gray-300', 'whitespace-nowrap text-gray-500 py-4 px-1 border-b-2 cursor-pointer']"
                       >Fish Caught</div>
                     </Tab>
-                    <Tab as="template" v-slot="{ selected }">
+                    <Tab as="template" v-if="data.health_advisories.length" v-slot="{ selected }">
                       <div
                         :class="[selected ? 'border-olive-500 text-olive-500 font-medium' : 'border-transparent hover:text-gray-700 hover:border-gray-300', 'whitespace-nowrap text-gray-500 py-4 px-1 border-b-2 cursor-pointer']"
-                      >Regulations</div>
+                      >Advisories</div>
                     </Tab>
                   </TabList>
                   <TabPanels class="overflow-x-hidden">
@@ -237,7 +237,11 @@
                         <fish-entries-table :fish-entries="data.fish_entries" />
                       </div>
                     </TabPanel>
-                    <TabPanel>Content 3</TabPanel>
+                    <TabPanel v-if="data.health_advisories.length">
+                      <div class="p-2">
+                        <health-advisories-panel :health-advisories="data.health_advisories" />
+                      </div>
+                    </TabPanel>
                   </TabPanels>
                 </TabGroup>
               </div>
@@ -260,6 +264,7 @@ import MaplibreMap from '../../components/maplibre-map.vue'
 import BtnHeart from '../../components/btn-heart.vue'
 import NearbyWatersContainer from './nearby-waters-container.vue'
 import FishEntriesTable from './fish-entries-table.vue'
+import HealthAdvisoriesPanel from './health-advisories-panel.vue'
 
 import { getFishableWatersById } from '../../services/api.js'
 
@@ -271,6 +276,7 @@ export default {
     NdowLoading,
     NearbyWatersContainer,
     FishEntriesTable,
+    HealthAdvisoriesPanel,
     MaplibreMap,
     TabGroup,
     TabList,
