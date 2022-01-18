@@ -9,9 +9,9 @@ const api = axios.create({
   }
 })
 
-api.interceptors.request.use((config) => {
-  return new Promise(resolve => setTimeout(() => resolve(config), 500))
-})
+// api.interceptors.request.use((config) => {
+//   return new Promise(resolve => setTimeout(() => resolve(config), 500))
+// })
 
 const getFishableWaters = async () => {
   try {

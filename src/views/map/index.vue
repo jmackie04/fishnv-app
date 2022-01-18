@@ -6,9 +6,9 @@
     <div class="flex-1 flex overflow-hidden">
       <!-- map section toggle relative to play with child component placement -->
       <section
-        v-if="display === 'both' || display === 'map'"
+        v-show="display === 'both' || display === 'map'"
         id="map"
-        class="block min-w-0 flex-1 lg:order-last bg-blue-300"
+        class="block min-w-0 flex-1 lg:order-last bg-hero-topo"
       >
         <maplibre-map ref="maplibre" :portal-slider="true" @update:moveend="syncUrl" />
       </section>
@@ -109,6 +109,11 @@ export default {
     },
       { deep: true }
     )
+
+    watch(display, async () => {
+      await nextTick()
+      maplibre.value.map.resize()
+    })
 
     return {
       fishableWaters,

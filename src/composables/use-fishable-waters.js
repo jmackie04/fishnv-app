@@ -16,9 +16,9 @@ const FishNvApi = axios.create({
   }
 })
 
-FishNvApi.interceptors.request.use((config) => {
-  return new Promise(resolve => setTimeout(() => resolve(config), 1000))
-})
+// FishNvApi.interceptors.request.use((config) => {
+//   return new Promise(resolve => setTimeout(() => resolve(config), 1000))
+// })
 
 /** filterFishableWaters */
 const filterFishableWaters = (fishableWaters, filters) => {
