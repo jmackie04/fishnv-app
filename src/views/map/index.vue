@@ -16,7 +16,7 @@
       <!-- side bar -->
       <aside
         v-if="display === 'both' || display === 'list'"
-        class="relative z-10 w-full lg:w-120 lg:flex-shink-0 lg:order-first overflow-clip overflow-y-scroll shadow-sm"
+        class="relative w-full lg:w-120 lg:flex-shink-0 lg:order-first overflow-clip overflow-y-scroll shadow-sm"
       >
         <div v-if="!isLoading">
           <div class="p-2 text-2xl text-oxford-600">{{ totalFishableWaters }} Fishable Waters</div>

@@ -349,12 +349,14 @@ export default {
     onMounted(() => {
       getFavoriteWaters()
 
-      maplibre.value.map.on('style.load', () => {
-        const polygonFilter = ['==', '$type', 'Polygon']
-        const lines = ['==', '$id', parseInt(props.id)]
-        const poly = ['all', polygonFilter, lines]
-        maplibre.value.map.setFilter('hovered-fw-lines', lines)
-        maplibre.value.map.setFilter('hovered-fw-polygons', poly)
+      nextTick(() => {
+        maplibre.value.map.on('style.load', () => {
+          const polygonFilter = ['==', '$type', 'Polygon']
+          const lines = ['==', '$id', parseInt(props.id)]
+          const poly = ['all', polygonFilter, lines]
+          maplibre.value.map.setFilter('hovered-fw-lines', lines)
+          maplibre.value.map.setFilter('hovered-fw-polygons', poly)
+        })
       })
     })
 

@@ -7,13 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.2] - 2022-01-19
+
+### Changed
+
+* Logo. Increased the size of the mountains to fill the whitespace.
+
+### Fixed
+
+* (Issue #2)[https://github.com/WildlifeNV/fishnv-app/issues/2] Map layer slider was showing up under the sidebar. This only happened in chrome. Fixed by removing the z-index from the sidebar.
+* Attempting to fix the color of the waters on `waters/:id` page. The water specified in the route params should be orange. It works in dev. Tried a callback in `nextTick()` to run the style update.
+
 ## [2.0.1] - 2022-01-18
 
-## Changed
+### Changed
 
 * `/dev` route is only use in dev mode.
 
-## Fixed
+### Fixed
 
 * Network call to `localhost` was used to fetch `/waters/:id`. Added `||` to replace from .env vars.
 
