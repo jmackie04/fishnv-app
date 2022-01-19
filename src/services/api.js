@@ -2,7 +2,7 @@ import axios from 'axios'
 import { ref, shallowRef } from 'vue'
 
 const api = axios.create({
-  baseURL: 'http://localhost:3333',
+  baseURL: import.meta.env.VITE_APIURL || 'http://localhost:3333',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json'

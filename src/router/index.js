@@ -1,7 +1,7 @@
 import Home from '../views/home/index.vue'
 import DevView from '../views/dev/index.vue'
 
-export const routes = [
+const routes = [
   {
     path: '/',
     name: 'Home',
@@ -19,11 +19,16 @@ export const routes = [
     name: 'waters',
     component: () => import('../views/waters/index.vue'),
     props: true
-  },
-  {
+  }
+]
+
+if (import.meta.env.DEV) {
+  routes.push({
     path: '/dev',
     name: 'Dev',
     component: DevView,
     meta: { title: 'dev page' }
-  }
-]
+  })
+}
+
+export default routes
