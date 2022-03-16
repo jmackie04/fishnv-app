@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2022-03-16
+
+### Added
+
+* Public lands map layer to the layer switcher panel.
+
+### Changed
+
+* All vector tile layers are served statically.
+
 ## [2.0.2] - 2022-01-19
 
 ### Changed
