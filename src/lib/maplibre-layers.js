@@ -1,5 +1,4 @@
 const MAPTILER_KEY = import.meta.env.VITE_MAPTILER_KEY
-const TILE_URL = import.meta.env.VITE_TILE_URL
 
 // basemaps layers
 export const basemaps = [
@@ -36,7 +35,7 @@ export const fishableWaters = {
   source: {
     'fishable-waters': {
       type: 'vector',
-      tiles: [`${TILE_URL}/features/fishable_waters/{z}/{x}/{y}.pbf`]
+      tiles: ['https://tiles.wildlifenv.com/fishable-waters/{z}/{x}/{y}.pbf']
     }
   },
   layers: [
@@ -44,7 +43,7 @@ export const fishableWaters = {
       id: 'fw-lines',
       type: 'line',
       source: 'fishable-waters',
-      'source-layer': 'fishable_waters',
+      'source-layer': 'fishable-waters',
       layout: {
         visibility: 'visible',
         'line-cap': 'round',
@@ -60,7 +59,7 @@ export const fishableWaters = {
       id: 'fw-polygons',
       type: 'fill',
       source: 'fishable-waters',
-      'source-layer': 'fishable_waters',
+      'source-layer': 'fishable-waters',
       layout: {
         visibility: 'visible',
       },
@@ -74,7 +73,7 @@ export const fishableWaters = {
       id: 'hovered-fw-lines',
       type: 'line',
       source: 'fishable-waters',
-      'source-layer': 'fishable_waters',
+      'source-layer': 'fishable-waters',
       layout: {
         visibility: 'visible',
         'line-cap': 'round',
@@ -90,7 +89,7 @@ export const fishableWaters = {
       id: 'hovered-fw-polygons',
       type: 'fill',
       source: 'fishable-waters',
-      'source-layer': 'fishable_waters',
+      'source-layer': 'fishable-waters',
       layout: {
         visibility: 'visible',
       },
@@ -127,39 +126,20 @@ export const huntUnits = {
   id: 'hunt-units',
   description: 'NDOW hunt units.',
   active: false,
-  thumbnail: 'https://ndow-cdn.s3.us-west-2.amazonaws.com/maptile-previews/hunt-units.png',
+  thumbnail:
+    'https://ndow-cdn.s3.us-west-2.amazonaws.com/maptile-previews/hunt-units.png',
   source: {
     'hunt-units': {
       type: 'vector',
-      tiles: ['https://huntnv.apis.wildlifenv.com/features/hunt_units_open_full/{z}/{x}/{y}.pbf']
-    },
-    'hunt-unit-labels': {
-      type: 'vector',
-      tiles: ['https://huntnv.apis.wildlifenv.com/features/hunt_unit_labels/{z}/{x}/{y}.pbf']
+      tiles: ['https://tiles.wildlifenv.com/hunt-units/{z}/{x}/{y}.pbf']
     }
   },
   layers: [
     {
-      id: 'hunt-units-outline',
-      type: 'line',
-      source: 'hunt-units',
-      'source-layer': 'hunt_units_open_full',
-      layout: {
-        visibility: 'none',
-        'line-cap': 'round',
-        'line-join': 'round'
-      },
-      paint: {
-        'line-opacity': 1,
-        'line-color': '#f29645',
-        'line-width': 2
-      }
-    },
-    {
       id: 'unit-labels',
       type: 'symbol',
-      source: 'hunt-unit-labels',
-      'source-layer': 'hunt_unit_labels',
+      source: 'hunt-units',
+      'source-layer': 'label_huntunits',
       layout: {
         visibility: 'none',
         'text-font': ['Open Sans Regular'],
@@ -171,45 +151,118 @@ export const huntUnits = {
         'text-halo-color': 'white',
         'text-halo-width': 1,
         'text-halo-blur': 1
-      }
-    }
-  ]
-}
-
-export const contours = {
-  name: 'contours',
-  id: 'contours',
-  description: 'Contour lines in meters',
-  active: false,
-  thumbnail: 'https://ndow-cdn.s3.us-west-2.amazonaws.com/maptile-previews/contours.png',
-  source: {
-    'contours': {
-      type: 'vector',
-      tiles: ['https://api.maptiler.com/tiles/contours/{z}/{x}/{y}.pbf?key=BJ5Us337tUIPtCCZeKV8']
-    }
-  },
-  layers: [
+      },
+      filter: ['==', 'is_open', 'true']
+    },
     {
-      id: 'contours',
+      id: 'hunt-units-outline',
       type: 'line',
-      source: 'contours',
-      'source-layer': 'contour',
+      source: 'hunt-units',
+      'source-layer': 'ndow_huntunits',
       layout: {
         visibility: 'none',
         'line-cap': 'round',
         'line-join': 'round'
       },
       paint: {
-        'line-opacity': 0.6,
-        'line-color': '#7a9e7f',
-        'line-width': 1
+        'line-opacity': 1,
+        'line-color': '#f29645',
+        'line-width': 2
+      }
+    }
+  ]
+}
+
+export const publicLandownership = {
+  name: 'public land',
+  id: 'public-landownership',
+  description: 'Public landownership data from USGS.',
+  active: false,
+  thumbnail:
+    'https://ndow-cdn.s3.us-west-2.amazonaws.com/maptile-previews/hunt-units.png',
+  source: {
+    'public-landownership': {
+      type: 'vector',
+      tiles: ['https://tiles.wildlifenv.com/public-lands/{z}/{x}/{y}.pbf'],
+      minzoom: 6,
+      maxzoom: 16
+    }
+  },
+  layers: [
+    {
+      id: 'landownership-fill',
+      type: 'fill',
+      source: 'public-landownership',
+      'source-layer': 'public_lands',
+      layout: {
+        visibility: 'none'
+      },
+      paint: {
+        'fill-opacity': 0.5,
+        'fill-color': [
+          'match',
+          ['get', 'landowner'],
+          'BIA',
+          '#FEB483',
+          'BLM',
+          '#FED17E',
+          'BOR, USACE',
+          '#FDBCDA',
+          'City, State, County',
+          '#9EE5FB',
+          'DOD, DOE',
+          '#EDC4A5',
+          'FS',
+          '#60C99E',
+          'NPS',
+          '#BECDE8',
+          'Parks, Monuments and Refuges',
+          '#BECDE8',
+          '#ccc'
+        ]
+      }
+    },
+    {
+      id: 'landownership-outline',
+      type: 'line',
+      source: 'public-landownership',
+      'source-layer': 'public_lands',
+      layout: {
+        'line-cap': 'round',
+        'line-join': 'round',
+        visibility: 'none'
+      },
+      paint: {
+        'line-opacity': 0.2,
+        'line-width': 1,
+        'line-color': [
+          'match',
+          ['get', 'landowner'],
+          'BIA',
+          '#FEB483',
+          'BLM',
+          '#FED17E',
+          'BOR, USACE',
+          '#FDBCDA',
+          'City, State, County',
+          '#9EE5FB',
+          'DOD, DOE',
+          '#EDC4A5',
+          'FS',
+          '#60C99E',
+          'NPS',
+          '#BECDE8',
+          'Parks, Monuments and Refuges',
+          '#BECDE8',
+          '#ccc'
+        ]
       }
     }
   ]
 }
 
 export const layers = [
+  publicLandownership,
   fishableWaters,
   huntUnits,
-  // contours
 ]
