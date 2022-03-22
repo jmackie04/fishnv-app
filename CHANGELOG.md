@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Uppercase layer card, layer title.
+* Transparent border on inactive layer cards.
+
 ## [2.2.0] - 2022-04-22
 
 ### Added
