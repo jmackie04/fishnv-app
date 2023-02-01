@@ -115,7 +115,7 @@ const other = [
   {
     group: 'other',
     label: 'Black Crappie',
-    value: 'balck crappie'
+    value: 'black crappie'
   },
   {
     group: 'other',
